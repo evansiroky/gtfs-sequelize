@@ -1,0 +1,29 @@
+{
+  "name": "gtfs-sequelize",
+  "version": "0.0.1",
+  "description": "A model for the static GTFS using sequelize.",
+  "main": "index.js",
+  "scripts": {
+    "download_gtfs": "node scripts/download.js",
+    "load_gtfs": "node scripts/load.js",
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/djstroky/gtfs-sequelize.git"
+  },
+  "keywords": [
+    "gtfs",
+    "transit",
+    "database"
+  ],
+  "author": "Evan Siroky",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/djstroky/gtfs-sequelize/issues"
+  },
+  "homepage": "https://github.com/djstroky/gtfs-sequelize#readme",
+  "dependencies": {
+    "request": "^2.57.0"
+  }
+}
