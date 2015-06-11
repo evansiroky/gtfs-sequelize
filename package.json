@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/djstroky/gtfs-sequelize#readme",
   "dependencies": {
-    "request": "^2.57.0"
+    "request": "^2.57.0",
+    "unzip2": "^0.2.5"
   }
 }

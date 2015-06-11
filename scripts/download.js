@@ -24,4 +24,5 @@ try {
   }
 }
 
+// download the gtfs and save to the downloads folder
 request(config.gtfs_url).pipe(fs.createWriteStream(config.downloads_dir + '/google_transit.zip'));
