@@ -4,8 +4,6 @@
   "description": "A model for the static GTFS using sequelize.",
   "main": "index.js",
   "scripts": {
-    "download-gtfs": "node scripts/download.js",
-    "load-gtfs": "node scripts/load.js",
     "test-download": "mocha tests/testDownload.js",
     "test-pg": "npm run test-download && npm run test-pg-load",
     "test-pg-load": "mocha tests/testPg.js",
