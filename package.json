@@ -1,6 +1,6 @@
 {
   "name": "gtfs-sequelize",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "A model for the static GTFS using sequelize.",
   "main": "index.js",
   "scripts": {
