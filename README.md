@@ -1,4 +1,7 @@
 # gtfs-sequelize
+
+[![npm version](https://badge.fury.io/js/gtfs-sequelize.svg)](http://badge.fury.io/js/gtfs-sequelize)
+
 A model of the static GTFS using [sequelize.js](http://sequelizejs.com/).
 
 ## Current Status (as of 2015-08-17):
