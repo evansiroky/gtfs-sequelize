@@ -10,7 +10,7 @@ Project is in alpha version.  Currently tested with a small transit agency with 
 
 ## Usage:
 
-# Downloading the GTFS File:
+### Downloading the GTFS File:
 
     var GTFS = require('gtfs-sequelize');
     
@@ -20,11 +20,11 @@ Project is in alpha version.  Currently tested with a small transit agency with 
     };
     
     var gtfs = GTFS(downloadConfig);
-    gtfs = gtfs.downloadGtfs(function() {
+    gtfs.downloadGtfs(function() {
       //download has finished callback
     });
 
-# Loading GTFS into Database:
+### Loading GTFS into Database:
 
     var GTFS = require('gtfs-sequelize');
     
@@ -38,6 +38,28 @@ Project is in alpha version.  Currently tested with a small transit agency with 
     }
 
     var gtfs = GTFS(pgConfig);
-    gtfs = gtfs.loadGtfs(function() {
+    gtfs.loadGtfs(function() {
       //database loading has finished callback
     });
+    
+### Loading into a DB with PostGIS installed:
+
+    var GTFS = require('gtfs-sequelize');
+    
+    var pgConfig = {
+      database: 'postgres://gtfs_sequelize:gtfs_sequelize@localhost:5432/gtfs-sequelize-test',
+      downloadsDir: 'downloads',
+      gtfsFilename: 'google_transit.zip',
+      isPostGIS: true,
+      sequelizeOptions: {
+        logging: false
+      }
+    }
+
+    var gtfs = GTFS(pgConfig);
+    gtfs.loadGtfs(function() {
+      //database loading has finished callback
+    });
+
+  
+
