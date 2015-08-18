@@ -9,5 +9,7 @@ module.exports = function(sequelize, DataTypes) {
     feed_start_date: DataTypes.DATE,
     feed_end_date: DataTypes.DATE,
     feed_version: DataTypes.STRING(255)
+  }, {
+    freezeTableName: true
   });
 }

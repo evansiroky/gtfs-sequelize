@@ -1,14 +1,22 @@
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define("stop_time", {
+  var StopTime = sequelize.define("stop_time", {
     trip_id: {
       type: DataTypes.STRING(255),
-      primaryKey: true
+      primaryKey: true,
+      references: {
+        model: 'trip',
+        key: 'trip_id'
+      }
     },
     arrival_time: DataTypes.INTEGER,
     departure_time: DataTypes.INTEGER,
     stop_id: {
       type: DataTypes.STRING(255),
-      primaryKey: true
+      primaryKey: true,
+      references: {
+        model: 'stop',
+        key: 'stop_id'
+      }
     },
     stop_sequence: {
       type: DataTypes.INTEGER,
@@ -19,5 +27,21 @@ module.exports = function(sequelize, DataTypes) {
     drop_off_type: DataTypes.INTEGER,
     shape_dist_traveled: DataTypes.FLOAT,
     timepoint: DataTypes.INTEGER,
+  }, {
+    freezeTableName: true,
+    classMethods: {
+      associate: function (models) {
+        StopTime.belongsTo(models.trip, {
+          foreignKeyContraint: true, 
+          foreignKey: "trip_id" 
+        });
+        StopTime.belongsTo(models.stop, {
+          foreignKeyContraint: true, 
+          foreignKey: "stop_id" 
+        });
+      }
+    }
   });
+
+  return StopTime;
 }

@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define("stop", {
+  var Stop = sequelize.define("stop", {
     stop_id: {
       type: DataTypes.STRING(255),
       primaryKey: true
@@ -15,5 +15,26 @@ module.exports = function(sequelize, DataTypes) {
     parent_station: DataTypes.INTEGER,
     stop_timezone: DataTypes.STRING(100),
     wheelchair_boarding: DataTypes.INTEGER
+  }, {
+    freezeTableName: true,
+    classMethods: {
+      associate: function (models) {
+        
+        Stop.hasMany(models.stop_time, {
+          foreignKey: 'stop_id'
+        });
+
+        Stop.hasMany(models.transfer, {
+          foreignKey: 'from_stop_id'
+        });
+
+        Stop.hasMany(models.transfer, {
+          foreignKey: 'to_stop_id'
+        });
+        
+      }
+    }
   });
+
+  return Stop;
 }

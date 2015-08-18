@@ -22,7 +22,13 @@ module.exports = function(sequelize, DataTypes) {
     trip_short_name: DataTypes.STRING(100),
     direction_id: DataTypes.INTEGER,
     block_id: DataTypes.STRING(255),
-    shape_id: DataTypes.STRING(255),  // association omitted.  See PostGIS trip for relation.
+    shape_id: {
+      type: DataTypes.STRING(255), 
+      references: {
+        model: "shape_gis",
+        key: "shape_id"
+      }
+    },
     wheelchair_accessible: DataTypes.INTEGER,
     bikes_allowed: DataTypes.INTEGER
   }, {
@@ -38,6 +44,11 @@ module.exports = function(sequelize, DataTypes) {
         Trip.belongsTo(models.calendar, {
           foreignKeyContraint: true, 
           foreignKey: "service_id" 
+        });
+
+        Trip.belongsTo(models.shape_gis, {
+          foreignKeyContraint: true, 
+          foreignKey: "shape_id" 
         });
 
         Trip.hasMany(models.stop_time, {

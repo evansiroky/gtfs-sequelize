@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define("fare_attribute", {
+  var FareAttribute = sequelize.define("fare_attribute", {
     fare_id: {
       type: DataTypes.STRING(255),
       primaryKey: true
@@ -9,5 +9,17 @@ module.exports = function(sequelize, DataTypes) {
     payment_method: DataTypes.INTEGER,
     transfers: DataTypes.INTEGER,
     transfer_duration: DataTypes.INTEGER
+  }, {
+    freezeTableName: true,
+    classMethods: {
+      associate: function (models) {
+        
+        FareAttribute.hasMany(models.fare_rule, {
+          foreignKey: 'fare_id'
+        });
+      }
+    }
   });
+
+  return FareAttribute;
 }

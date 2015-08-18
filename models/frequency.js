@@ -1,8 +1,12 @@
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define("frequency", {
+  var Frequency = sequelize.define("frequency", {
     trip_id: {
       type: DataTypes.STRING(255),
-      primaryKey: true
+      primaryKey: true,
+      references: {
+        model: "trip",
+        key: "trip_id"
+      }
     },
     start_time: {
       type: DataTypes.INTEGER,
@@ -14,5 +18,19 @@ module.exports = function(sequelize, DataTypes) {
     },
     headway_secs: DataTypes.INTEGER,
     exact_times: DataTypes.INTEGER
+  }, {
+    freezeTableName: true,
+    classMethods: {
+      associate: function (models) {
+
+        Frequency.belongsTo(models.trip, {
+          foreignKeyContraint: true, 
+          foreignKey: "trip_id" 
+        });
+        
+      }
+    }
   });
+
+  return Frequency;
 }

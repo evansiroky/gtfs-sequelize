@@ -1,8 +1,12 @@
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define("fare_rule", {
+  var FareRule = sequelize.define("fare_rule", {
     fare_id: {
       type: DataTypes.STRING(255),
-      primaryKey: true
+      primaryKey: true,
+      references: {
+        model: "fare_attribute",
+        key: "fare_id"
+      }
     },
     route_id: {
       type: DataTypes.STRING(255),
@@ -20,5 +24,18 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(255),
       primaryKey: true
     }
+  }, {
+    freezeTableName: true,
+    classMethods: {
+      associate: function (models) {
+        
+        FareRule.belongsTo(models.fare_attribute, {
+          foreignKeyContraint: true, 
+          foreignKey: "fare_id" 
+        });
+      }
+    }
   });
+
+  return FareRule;
 }

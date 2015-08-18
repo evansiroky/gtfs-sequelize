@@ -11,5 +11,7 @@ module.exports = function(sequelize, DataTypes) {
       primaryKey: true
     },
     shape_dist_traveled: DataTypes.FLOAT
+  }, {
+    freezeTableName: true
   });
 }
