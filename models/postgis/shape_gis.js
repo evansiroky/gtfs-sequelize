@@ -4,7 +4,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(255),
       primaryKey: true
     },
-    geom: DataTypes.GEOMETRY
+    geom: DataTypes.GEOMETRY('LineString', 4326)
   }, {
     freezeTableName: true,
     classMethods: {

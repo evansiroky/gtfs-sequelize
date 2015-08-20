@@ -15,7 +15,7 @@ module.exports = function(sequelize, DataTypes) {
     parent_station: DataTypes.INTEGER,
     stop_timezone: DataTypes.STRING(100),
     wheelchair_boarding: DataTypes.INTEGER,
-    geom: DataTypes.GEOMETRY
+    geom: DataTypes.GEOMETRY('Point', 4326)
   }, {
     freezeTableName: true,
     classMethods: {
