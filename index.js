@@ -4,10 +4,16 @@ var path = require('path'),
   loadgtfs = require('./lib/gtfsLoader.js');
 
 module.exports = function(config) {
-	return {
+  return {
     config: config,
-    connectToDatabase: function() {
-      return Database(this.config.database, this.config.sequelizeOptions ? this.config.sequelizeOptions : {});
+    connectToDatabase: function(rawModels) {
+      var db = Database(this.config.database, this.config.sequelizeOptions ? this.config.sequelizeOptions : {});
+      if(config.isPostGIS) {
+        db.stop = db.sequelize.import('models/postgis/stop.js');
+        db.shape_gis = db.sequelize.import('models/postgis/shape_gis.js');
+        db.trip = db.sequelize.import('models/postgis/trip.js');
+      }
+      return db;
     },
     downloadGtfs: function(callback) {
       this._validateConfig();
@@ -16,7 +22,7 @@ module.exports = function(config) {
     loadGtfs: function(callback) {
       loadgtfs(this.config.downloadsDir, 
         this.config.gtfsFilename, 
-        this.connectToDatabase(),
+        this.connectToDatabase(true),
         config.isPostGIS,
         callback);
     },
