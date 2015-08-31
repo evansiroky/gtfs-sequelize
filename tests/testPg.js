@@ -1,3 +1,5 @@
+var Q = require('q');
+
 var pgConfig = {
   database: 'postgres://gtfs_sequelize:gtfs_sequelize@localhost:5432/gtfs-sequelize-test',
   downloadsDir: 'downloads',
@@ -8,10 +10,21 @@ var pgConfig = {
 }
 
 describe('pg-load', function() {
-  it('should load', function(done) {
+  it('should load', function() {
     this.timeout(60000);
-    var gtfs = require('../index.js')(pgConfig);
-    gtfs = gtfs.loadGtfs(done);
-    setTimeout(done, 59800);
+    
+    var promise = function() {
+      deferred = Q.defer();
+      try{
+        var gtfs = require('../index.js')(pgConfig);
+        gtfs = gtfs.loadGtfs(deferred.resolve);
+      } catch(err) {
+        deferred.reject(err);
+      }
+      return deferred.promise;
+    }
+
+    return promise();
+    
   });
 });
