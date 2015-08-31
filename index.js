@@ -8,7 +8,7 @@ module.exports = function(config) {
     config: config,
     connectToDatabase: function(rawModels) {
       var db = Database(this.config.database, this.config.sequelizeOptions ? this.config.sequelizeOptions : {});
-      if(config.isPostGIS) {
+      if(!rawModels && config.isPostGIS) {
         db.stop = db.sequelize.import('models/postgis/stop.js');
         db.shape_gis = db.sequelize.import('models/postgis/shape_gis.js');
         db.trip = db.sequelize.import('models/postgis/trip.js');
