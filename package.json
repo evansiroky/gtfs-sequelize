@@ -31,7 +31,6 @@
     "download": "^4.2.0",
     "download-status": "^2.2.1",
     "moment": "^2.10.6",
-    "request": "^2.60.0",
     "sequelize": "^3.5.1",
     "unzip2": "^0.2.5"
   },
