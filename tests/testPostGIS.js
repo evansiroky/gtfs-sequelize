@@ -12,7 +12,7 @@ var pgConfig = {
 
 describe('postgis-load', function() {
   it('should load', function() {
-    this.timeout(60000);
+    this.timeout(600000);
     
     var promise = function() {
       deferred = Q.defer();
