@@ -1,13 +1,14 @@
 var Q = require('q');
 
 var downloadConfig = {
-  gtfsUrl: 'http://feed.rvtd.org/googleFeeds/static/google_transit.zip',
+  // gtfsUrl: 'http://feed.rvtd.org/googleFeeds/static/google_transit.zip' // RVTD - small agency
+  gtfsUrl: 'http://www.vta.org/sfc/servlet.shepherd/document/download/069A0000001NUea',  // VTA - large agency
   downloadsDir: 'downloads'
 }
 
 describe('gtfs-download', function() {
   it('should download', function() {
-    this.timeout(30000);
+    this.timeout(300000);
 
     var promise = function() {
       deferred = Q.defer();
