@@ -12,7 +12,7 @@ module.exports = function(sequelize, DataTypes) {
     zone_id: DataTypes.STRING(255),
     stop_url: DataTypes.STRING(255),
     location_type: DataTypes.INTEGER,
-    parent_station: DataTypes.INTEGER,
+    parent_station: DataTypes.STRING(255),
     stop_timezone: DataTypes.STRING(100),
     wheelchair_boarding: DataTypes.INTEGER
   }, {

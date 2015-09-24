@@ -8,7 +8,7 @@ var downloadConfig = {
 
 describe('gtfs-download', function() {
   it('should download', function() {
-    this.timeout(300000);
+    this.timeout(3000000);
 
     var promise = function() {
       deferred = Q.defer();

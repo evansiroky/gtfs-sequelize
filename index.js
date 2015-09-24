@@ -21,7 +21,7 @@ module.exports = function(config) {
     },
     loadGtfs: function(callback) {
       loadgtfs(this.config.downloadsDir, 
-        this.config.gtfsFilename, 
+        this.config.gtfsFileOrFolder, 
         this.connectToDatabase(true),
         config.isPostGIS,
         callback);
