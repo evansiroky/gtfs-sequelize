@@ -3,7 +3,7 @@ var Q = require('q');
 var pgConfig = {
   database: 'postgres://gtfs_sequelize:gtfs_sequelize@localhost:5432/gtfs-sequelize-test',
   downloadsDir: 'downloads',
-  gtfsFileOrFolder: 'google_transit',
+  gtfsFileOrFolder: 'google_transit.zip',
   isPostGIS: true,
   sequelizeOptions: {
     logging: false

@@ -28,7 +28,7 @@
   "dependencies": {
     "async": "^1.4.2",
     "csv": "^0.4.6",
-    "db-streamer": "^0.3.2",
+    "db-streamer": "^0.3.3",
     "download": "^4.2.0",
     "download-status": "^2.2.1",
     "ftp": "^0.3.10",
