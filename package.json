@@ -4,7 +4,12 @@
   "description": "A model for the static GTFS using sequelize.",
   "main": "index.js",
   "scripts": {
+    "test": "npm run test-download && test-mysql-load && test-mysql-spatial-load && npm run test-pg-load && npm run test-postgis-load",
     "test-download": "mocha tests/testDownload.js",
+    "test-mysql": "npm run test-download && npm run test-mysql-load",
+    "test-mysql-load": "mocha tests/testMySql.js",
+    "test-mysql-spatial": "npm run test-download && npm run test-mysql-spatial-load",
+    "test-mysql-spatial-load": "mocha tests/testMySqlSpatial.js",
     "test-pg": "npm run test-download && npm run test-pg-load",
     "test-pg-load": "mocha tests/testPg.js",
     "test-postgis": "npm run test-download && npm run test-postgis-load",
@@ -28,21 +33,23 @@
   "dependencies": {
     "async": "^1.4.2",
     "csv": "^0.4.6",
-    "db-streamer": "^0.3.3",
+    "db-streamer": "^0.4.0",
     "download": "^4.2.0",
     "download-status": "^2.2.1",
     "ftp": "^0.3.10",
     "moment": "^2.10.6",
     "rimraf": "^2.4.3",
-    "sequelize": "^3.5.1",
+    "sequelize": "^3.11.0",
     "unzip2": "^0.2.5",
     "url-parse": "^1.0.2"
   },
   "devDependencies": {
+    "bluebird": "^2.10.2",
     "mocha": "^2.2.5",
+    "mysql": "^2.9.0",
     "pg": "^4.4.0",
     "pg-copy-streams": "^0.3.0",
     "pg-hstore": "^2.3.2",
-    "q": "^1.4.1"
+    "streamsql": "^0.8.5"
   }
 }

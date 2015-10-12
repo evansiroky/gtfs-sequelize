@@ -1,4 +1,4 @@
-var Q = require('q');
+var Promise = require('bluebird');
 
 var pgConfig = {
   database: 'postgres://gtfs_sequelize:gtfs_sequelize@localhost:5432/gtfs-sequelize-test',
@@ -9,26 +9,12 @@ var pgConfig = {
   }
 }
 
-describe('pg-load', function() {
-  it('should load', function() {
+describe('pg', function() {
+  it('data should load', function() {
     this.timeout(300000);
     
-    var promise = function() {
-      deferred = Q.defer();
-      try{
-        var gtfs = require('../index.js')(pgConfig);
-        gtfs.loadGtfs(function(err) {
-          if(err) {
-            deferred.reject(err);
-          } else {
-            deferred.resolve();
-          }
-        });
-      } catch(err) {
-        deferred.reject(err);
-      }
-      return deferred.promise;
-    }
+    var gtfs = require('../index.js')(pgConfig),
+      promise = Promise.promisify(gtfs.loadGtfs);
 
     return promise();
     

@@ -4,30 +4,33 @@ var path = require('path'),
   loadgtfs = require('./lib/gtfsLoader.js');
 
 module.exports = function(config) {
+
+  var connectToDatabase = function(rawModels) {
+    var db = Database(config.database, config.sequelizeOptions ? config.sequelizeOptions : {});
+    if(!rawModels && config.isPostGIS) {
+      db.stop = db.sequelize.import('models/postgis/stop.js');
+      db.shape_gis = db.sequelize.import('models/postgis/shape_gis.js');
+      db.trip = db.sequelize.import('models/postgis/trip.js');
+    }
+    return db;
+  }
+
+  var download = function(callback) {
+    downloadGtfs(config.gtfsUrl, config.downloadsDir, callback);
+  }
+
+  var loadGtfs = function(callback) {
+    loadgtfs(config.downloadsDir, 
+      config.gtfsFileOrFolder, 
+      connectToDatabase(true),
+      config.isPostGIS,
+      callback);
+  }
+
   return {
     config: config,
-    connectToDatabase: function(rawModels) {
-      var db = Database(this.config.database, this.config.sequelizeOptions ? this.config.sequelizeOptions : {});
-      if(!rawModels && config.isPostGIS) {
-        db.stop = db.sequelize.import('models/postgis/stop.js');
-        db.shape_gis = db.sequelize.import('models/postgis/shape_gis.js');
-        db.trip = db.sequelize.import('models/postgis/trip.js');
-      }
-      return db;
-    },
-    downloadGtfs: function(callback) {
-      this._validateConfig();
-      downloadGtfs(this.config.gtfsUrl, this.config.downloadsDir, callback);
-    },
-    loadGtfs: function(callback) {
-      loadgtfs(this.config.downloadsDir, 
-        this.config.gtfsFileOrFolder, 
-        this.connectToDatabase(true),
-        config.isPostGIS,
-        callback);
-    },
-    _validateConfig: function() {
-
-    }
+    connectToDatabase: connectToDatabase,
+    downloadGtfs: download,
+    loadGtfs: loadGtfs
   }
 }
