@@ -4,7 +4,7 @@
   "description": "A model for the static GTFS using sequelize.",
   "main": "index.js",
   "scripts": {
-    "test": "npm run test-download && test-mysql-load && test-mysql-spatial-load && npm run test-pg-load && npm run test-postgis-load",
+    "test": "npm run test-download && npm run test-mysql-load && npm run test-mysql-spatial-load && npm run test-pg-load && npm run test-postgis-load",
     "test-download": "mocha tests/testDownload.js",
     "test-mysql": "npm run test-download && npm run test-mysql-load",
     "test-mysql-load": "mocha tests/testMySql.js",

@@ -1,7 +1,7 @@
 var Promise = require('bluebird');
 
-var pgConfig = {
-  database: 'postgres://gtfs_sequelize:gtfs_sequelize@localhost:5432/gtfs-sequelize-test',
+var mySqlConfig = {
+  database: 'mysql://gtfs_sequelize:gtfs_sequelize@localhost:3306/gtfs-sequelize-test',
   downloadsDir: 'downloads',
   gtfsFileOrFolder: 'google_transit.zip',
   spatial: true,
@@ -10,11 +10,11 @@ var pgConfig = {
   }
 }
 
-describe('postgis', function() {
+describe('mysql-spatial', function() {
   it('data should load', function() {
-    this.timeout(30000000);
+    this.timeout(300000);
     
-    var gtfs = require('../index.js')(pgConfig),
+    var gtfs = require('../index.js')(mySqlConfig),
       promise = Promise.promisify(gtfs.loadGtfs);
 
     return promise();

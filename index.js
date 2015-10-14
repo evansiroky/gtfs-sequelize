@@ -7,7 +7,7 @@ module.exports = function(config) {
 
   var connectToDatabase = function(rawModels) {
     var db = Database(config.database, config.sequelizeOptions ? config.sequelizeOptions : {});
-    if(!rawModels && config.isPostGIS) {
+    if(!rawModels && config.spatial) {
       db.stop = db.sequelize.import('models/postgis/stop.js');
       db.shape_gis = db.sequelize.import('models/postgis/shape_gis.js');
       db.trip = db.sequelize.import('models/postgis/trip.js');
@@ -23,7 +23,7 @@ module.exports = function(config) {
     loadgtfs(config.downloadsDir, 
       config.gtfsFileOrFolder, 
       connectToDatabase(true),
-      config.isPostGIS,
+      config.spatial,
       callback);
   }
 
