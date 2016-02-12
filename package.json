@@ -1,6 +1,6 @@
 {
   "name": "gtfs-sequelize",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "A model for the static GTFS using sequelize.",
   "main": "index.js",
   "scripts": {
@@ -41,7 +41,8 @@
     "rimraf": "^2.4.3",
     "sequelize": "^3.11.0",
     "unzip2": "^0.2.5",
-    "url-parse": "^1.0.2"
+    "url-parse": "^1.0.2",
+    "uuid": "^2.0.1"
   },
   "devDependencies": {
     "bluebird": "^2.10.2",
