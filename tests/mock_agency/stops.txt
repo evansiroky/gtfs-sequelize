@@ -1,0 +1,6 @@
+stop_id,stop_code,stop_name,stop_desc,stop_lat,stop_lon,zone_id,stop_url,location_type,parent_station,stop_timezone,wheelchair_boarding
+LA,1,Los Angeles,,34.056313,-118.234014,,,,,,
+SEA,2,Seattle,,47.598398,-122.329480,,,,,,
+SF,3,San Francisco,,37.789475,-122.396447,Z1,,,,,
+PDX,4,Portland,,45.529091,-122.676772,Z2,,,,,
+SAC,5,Sacramento,,38.586337,-121.499188,Z3,,,,,

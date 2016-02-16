@@ -24,11 +24,13 @@ module.exports = function(sequelize, DataTypes) {
       associate: function (models) {
 
         Transfer.belongsTo(models.stop, {
+          as: 'from_stop',
           foreignKeyContraint: true, 
           foreignKey: "from_stop_id" 
         });
 
         Transfer.belongsTo(models.stop, {
+          as: 'to_stop',
           foreignKeyContraint: true, 
           foreignKey: "to_stop_id" 
         });

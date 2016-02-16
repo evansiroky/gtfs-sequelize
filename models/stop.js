@@ -25,11 +25,33 @@ module.exports = function(sequelize, DataTypes) {
         });
 
         Stop.hasMany(models.transfer, {
-          foreignKey: 'from_stop_id'
+          as: 'transfer_from_stops',
+          foreignKey: 'stop_id',
+          targetKey: 'from_stop_id'
         });
 
         Stop.hasMany(models.transfer, {
-          foreignKey: 'to_stop_id'
+          as: 'transfer_to_stops',
+          foreignKey: 'stop_id',
+          targetKey: 'to_stop_id'
+        });
+
+        Stop.hasMany(models.fare_rule, {
+          as: 'fare_rule_origins',
+          foreignKey: 'zone_id',
+          targetKey: 'origin_id'
+        });
+
+        Stop.hasMany(models.fare_rule, {
+          as: 'fare_rule_destinations',
+          foreignKey: 'zone_id',
+          targetKey: 'destination_id'
+        });
+
+        Stop.hasMany(models.fare_rule, {
+          as: 'fare_rule_contains',
+          foreignKey: 'zone_id',
+          targetKey: 'contains_id'
         });
         
       }

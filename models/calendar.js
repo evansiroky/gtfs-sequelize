@@ -17,9 +17,15 @@ module.exports = function(sequelize, DataTypes) {
     freezeTableName: true,
     classMethods: {
       associate: function (models) {
+
         Calendar.hasMany(models.calendar_date, {
           foreignKey: 'service_id'
         });
+
+        Calendar.hasMany(models.trip, {
+          foreignKey: 'service_id'
+        });
+
       }
     }
   });
