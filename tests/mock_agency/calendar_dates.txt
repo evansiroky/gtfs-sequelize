@@ -1,2 +1,2 @@
 service_id,date,exception_type
-abcd,20151225,2
+weekend,20151225,2

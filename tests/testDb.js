@@ -137,32 +137,40 @@ describe(dbSpec, function() {
 
     it('calendar query should work', function() {
       return db.calendar
-        .findAll({ include: [db.calendar_date, db.trip] })
+        .findAll({ 
+          include: [db.calendar_date, db.trip],
+          where: {
+            service_id: 'weekend'
+          }
+        })
         .then(function(data) {
           // existence of record
           assert(data.length > 0);
 
           // correct data
-          assert(data[0].service_id === 'abcd');
+          assert(data[0].end_date.getDate() === 31);
           
           // associations
-          assert(data[0].calendar_dates.length > 0);  
-          assert(data[0].trips[0].trip_headsign === 'Seattle Express'); 
+          assert(data[0].calendar_dates[0].date.getDate() === 25);  
+          assert(data[0].trips[0].trip_id === 'weekend_trip'); 
         });
     });
 
     it('calendar_date query should work', function() {
       return db.calendar_date
-        .findAll({ include: [db.calendar] })
+        .findAll({ 
+          include: [db.calendar],
+          service_id: 'weekend'
+        })
         .then(function(data) {
           // existence of record
           assert(data.length > 0);
 
           // correct data
-          assert(data[0].service_id === 'abcd');
+          assert(data[0].date.getDate() === 25);
 
           // associations
-          assert(data[0].calendar.service_id === 'abcd');
+          assert(data[0].calendar.end_date.getDate() === 31);
         });
     });
 
@@ -261,6 +269,33 @@ describe(dbSpec, function() {
           });
       });
 
+    });
+
+    it('feed_info query should work', function() {
+      return db.feed_info
+        .findAll()
+        .then(function(data) {
+          // existence of record
+          assert(data.length > 0);
+
+          // correct data
+          assert(data[0].feed_publisher_name === 'mock factory');
+        });
+    });
+
+    it('frequency query should work', function() {
+      return db.frequency
+        .findAll({ include: [db.trip] })
+        .then(function(data) {
+          // existence of record
+          assert(data.length > 0);
+
+          // correct data
+          assert(data[0].headway_secs === 7200);
+
+          // associations
+          assert(data[0].trip.trip_id === 'weekday_trips');
+        });
     });
 
   })
