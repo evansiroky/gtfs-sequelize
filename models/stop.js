@@ -7,8 +7,8 @@ module.exports = function(sequelize, DataTypes) {
     stop_code: DataTypes.STRING(20),
     stop_name: DataTypes.STRING(255),
     stop_desc: DataTypes.STRING(255),
-    stop_lat: DataTypes.FLOAT,
-    stop_lon: DataTypes.FLOAT,
+    stop_lat: DataTypes.FLOAT(7),
+    stop_lon: DataTypes.FLOAT(7),
     zone_id: DataTypes.STRING(255),
     stop_url: DataTypes.STRING(255),
     location_type: DataTypes.INTEGER,
@@ -24,18 +24,7 @@ module.exports = function(sequelize, DataTypes) {
           foreignKey: 'stop_id'
         });
 
-        Stop.hasMany(models.transfer, {
-          as: 'transfer_from_stops',
-          foreignKey: 'stop_id',
-          targetKey: 'from_stop_id'
-        });
-
-        Stop.hasMany(models.transfer, {
-          as: 'transfer_to_stops',
-          foreignKey: 'stop_id',
-          targetKey: 'to_stop_id'
-        });
-
+        /* Don't fully understand how to get these working with sequelize yet
         Stop.hasMany(models.fare_rule, {
           as: 'fare_rule_origins',
           foreignKey: 'zone_id',
@@ -52,7 +41,19 @@ module.exports = function(sequelize, DataTypes) {
           as: 'fare_rule_contains',
           foreignKey: 'zone_id',
           targetKey: 'contains_id'
+        });        
+
+        Stop.hasMany(models.transfer, {
+          as: 'transfer_from_stops',
+          foreignKey: 'stop_id',
+          targetKey: 'from_stop_id'
         });
+
+        Stop.hasMany(models.transfer, {
+          as: 'transfer_to_stops',
+          foreignKey: 'stop_id',
+          targetKey: 'to_stop_id'
+        });*/
         
       }
     }

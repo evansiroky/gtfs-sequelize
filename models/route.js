@@ -31,6 +31,13 @@ module.exports = function(sequelize, DataTypes) {
         Route.hasMany(models.trip, {
           foreignKey: 'route_id'
         });
+
+        /* Don't fully understand how to get these working with sequelize yet
+        Route.hasMany(models.fare_rule, {
+          foreignKey: 'route_id'
+        });
+        */
+        
       }
     }
   });

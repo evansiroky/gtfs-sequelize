@@ -1,6 +1,6 @@
 {
   "name": "gtfs-sequelize",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "description": "A model for the static GTFS using sequelize.",
   "main": "index.js",
   "scripts": {
@@ -42,6 +42,7 @@
   },
   "devDependencies": {
     "bluebird": "^2.10.2",
+    "chai": "^3.5.0",
     "mocha": "^2.2.5",
     "mysql": "^2.9.0",
     "pg": "^4.4.0",

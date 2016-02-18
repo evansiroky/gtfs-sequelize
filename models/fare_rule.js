@@ -21,6 +21,7 @@ module.exports = function(sequelize, DataTypes) {
           foreignKey: "fare_id" 
         });
 
+        /* Don't fully understand how to get these working with sequelize yet
         FareRule.belongsTo(models.route, {
           foreignKey: 'route_id',
           constraints: false
@@ -45,7 +46,7 @@ module.exports = function(sequelize, DataTypes) {
           foreignKey: 'contains_id',
           targetKey: 'zone_id',
           constraints: false
-        });
+        });*/
         
       }
     }

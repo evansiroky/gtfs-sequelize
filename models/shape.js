@@ -4,8 +4,8 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(255),
       primaryKey: true
     },
-    shape_pt_lat: DataTypes.FLOAT,
-    shape_pt_lon: DataTypes.FLOAT,
+    shape_pt_lat: DataTypes.FLOAT(7),
+    shape_pt_lon: DataTypes.FLOAT(7),
     shape_pt_sequence: {
       type: DataTypes.INTEGER,
       primaryKey: true
