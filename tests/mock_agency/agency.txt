@@ -1,0 +1,2 @@
+agency_name,agency_url,agency_timezone,agency_lang,agency_phone
+West Coast Maglev,http://www.example.com,America/Los_Angeles,en,(555) 555-5555

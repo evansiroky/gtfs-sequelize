@@ -10,7 +10,7 @@ module.exports = function(sequelize, DataTypes) {
     route_id: DataTypes.STRING(255),
     origin_id: DataTypes.STRING(255),
     destination_id: DataTypes.STRING(255),
-    contains_id: DataTypes.STRING(255),
+    contains_id: DataTypes.STRING(255)
   }, {
     freezeTableName: true,
     classMethods: {
@@ -20,6 +20,34 @@ module.exports = function(sequelize, DataTypes) {
           foreignKeyContraint: true, 
           foreignKey: "fare_id" 
         });
+
+        /* Don't fully understand how to get these working with sequelize yet
+        FareRule.belongsTo(models.route, {
+          foreignKey: 'route_id',
+          constraints: false
+        });
+
+        FareRule.belongsTo(models.stop, {
+          as: 'origin_stop',
+          foreignKey: 'origin_id',
+          targetKey: 'zone_id',
+          constraints: false
+        });
+
+        FareRule.belongsTo(models.stop, {
+          as: 'destination_stop',
+          foreignKey: 'destination_id',
+          targetKey: 'zone_id',
+          constraints: false
+        });
+
+        FareRule.belongsTo(models.stop, {
+          as: 'contains_stop',
+          foreignKey: 'contains_id',
+          targetKey: 'zone_id',
+          constraints: false
+        });*/
+        
       }
     }
   });

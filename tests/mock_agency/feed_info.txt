@@ -1,0 +1,2 @@
+feed_publisher_name,feed_publisher_url,feed_lang,feed_version
+mock factory,https://github.com/evansiroky/gtfs-sequelize,en,1.0

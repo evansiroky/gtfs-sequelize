@@ -1,19 +1,15 @@
 {
   "name": "gtfs-sequelize",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "description": "A model for the static GTFS using sequelize.",
   "main": "index.js",
   "scripts": {
-    "test": "npm run test-download && npm run test-mysql-load && npm run test-mysql-spatial-load && npm run test-pg-load && npm run test-postgis-load",
+    "test": "npm run test-download && npm run test-mysql && npm run test-mysql-spatial && npm run test-pg && npm run test-postgis",
     "test-download": "mocha tests/testDownload.js",
-    "test-mysql": "npm run test-download && npm run test-mysql-load",
-    "test-mysql-load": "mocha tests/testMySql.js",
-    "test-mysql-spatial": "npm run test-download && npm run test-mysql-spatial-load",
-    "test-mysql-spatial-load": "mocha tests/testMySqlSpatial.js",
-    "test-pg": "npm run test-download && npm run test-pg-load",
-    "test-pg-load": "mocha tests/testPg.js",
-    "test-postgis": "npm run test-download && npm run test-postgis-load",
-    "test-postgis-load": "mocha tests/testPostGIS.js"
+    "test-mysql": "mocha tests/testDb.js --db-spec=mysql",
+    "test-mysql-spatial": "mocha tests/testDb.js --db-spec=mysql-spatial",
+    "test-pg": "mocha tests/testDb.js --db-spec=pg",
+    "test-postgis": "mocha tests/testDb.js --db-spec=postgis"
   },
   "repository": {
     "type": "git",
@@ -39,18 +35,20 @@
     "ftp": "^0.3.10",
     "moment": "^2.10.6",
     "rimraf": "^2.4.3",
-    "sequelize": "^3.11.0",
+    "sequelize": "^3.19.2",
     "unzip2": "^0.2.5",
     "url-parse": "^1.0.2",
     "uuid": "^2.0.1"
   },
   "devDependencies": {
     "bluebird": "^2.10.2",
+    "chai": "^3.5.0",
     "mocha": "^2.2.5",
     "mysql": "^2.9.0",
     "pg": "^4.4.0",
     "pg-copy-streams": "^0.3.0",
     "pg-hstore": "^2.3.2",
-    "streamsql": "^0.8.5"
+    "streamsql": "^0.8.5",
+    "yazl": "^2.3.0"
   }
 }

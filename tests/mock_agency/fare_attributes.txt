@@ -1,0 +1,5 @@
+fare_id,price,currency_type,payment_method,transfers
+global_fare,10,USD,0,0
+route_based_fare,20,USD,0,0
+origin_destination_fare,30,USD,0,0
+contains_fare,40,USD,0,0
