@@ -1,12 +1,10 @@
 # gtfs-sequelize
 
-[![npm version](https://badge.fury.io/js/gtfs-sequelize.svg)](http://badge.fury.io/js/gtfs-sequelize)
+[![npm version](https://badge.fury.io/js/gtfs-sequelize.svg)](http://badge.fury.io/js/gtfs-sequelize) [![Build Status](https://travis-ci.org/evansiroky/gtfs-sequelize.svg?branch=master)](https://travis-ci.org/evansiroky/gtfs-sequelize) [![Dependency Status](https://david-dm.org/evansiroky/gtfs-sequelize.svg)](https://david-dm.org/evansiroky/gtfs-sequelize) [![Test Coverage](https://codeclimate.com/github/evansiroky/gtfs-sequelize/badges/coverage.svg)](https://codeclimate.com/github/evansiroky/gtfs-sequelize/coverage)
 
 A model of the static GTFS using [sequelize.js](http://sequelizejs.com/).
 
-## Current Status (as of 2015-08-17):
-
-Project is in alpha version.  Currently tested with a small transit agency with PostgreSQL and PostGIS.
+Currently works only with PostgreSQL (including PostGIS) or MySQL.
 
 ## Usage:
 
@@ -50,7 +48,7 @@ Project is in alpha version.  Currently tested with a small transit agency with 
       database: 'postgres://gtfs_sequelize:gtfs_sequelize@localhost:5432/gtfs-sequelize-test',
       downloadsDir: 'downloads',
       gtfsFilename: 'google_transit.zip',
-      isPostGIS: true,
+      spatial: true,
       sequelizeOptions: {
         logging: false
       }
