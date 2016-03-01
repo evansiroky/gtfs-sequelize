@@ -13,32 +13,25 @@ var config = {
   }
 }
 
-var dbSpec, gtfs, promise;
+var gtfs, promise;
 
-for (var i = 0; i < process.argv.length; i++) {
-  if(process.argv[i].indexOf('--db-spec') > -1) {
-    dbSpec = process.argv[i].substr(10);
-    break;
-  }
-}
-
-switch(dbSpec) {
+switch(process.env.DIALECT) {
   case 'mysql-spatial':
     config.spatial = true
   case 'mysql':
-    config.database = 'mysql://gtfs_sequelize:gtfs_sequelize@localhost:3306/gtfs-sequelize-test'
+    config.database = 'mysql://gtfs_sequelize:gtfs_sequelize@localhost:3306/gtfs_sequelize_test'
     break;
   case 'postgis':
     config.spatial = true;
-  case 'pg':
-    config.database = 'postgres://gtfs_sequelize:gtfs_sequelize@localhost:5432/gtfs-sequelize-test'
+  case 'postgres':
+    config.database = 'postgres://gtfs_sequelize:gtfs_sequelize@localhost:5432/gtfs_sequelize_test'
     break;
   default:
-    throw new Error('invalid db-spec');
+    throw new Error('Invalid DIALECT');
     break;
 }
 
-describe(dbSpec, function() {
+describe(process.env.DIALECT, function() {
 
   describe('loading', function() {
 
