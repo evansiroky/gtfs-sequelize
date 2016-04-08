@@ -1,9 +1,8 @@
 var assert = require('chai').assert,
-  fs = require("fs"),
   moment = require('moment'),
-  path = require("path"),
-  Promise = require('bluebird'),
-  yazl = require("yazl");
+  Promise = require('bluebird');
+
+var util = require('./util.js')
 
 // prepare config for tests
 var config = {
@@ -36,31 +35,7 @@ describe(process.env.DIALECT, function() {
   describe('loading', function() {
 
     before(function(done) {
-      
-      // make a gtfs zip file from the mock data and put it in the downloads directory
-      var zipfile = new yazl.ZipFile();
-
-      // add all files in mock agency folder
-      var zipSourceDir = 'tests/mock_agency';
-      fs.readdirSync(zipSourceDir)
-        .forEach(function(file) {
-          zipfile.addFile(path.join(zipSourceDir, file), file)
-        });
-
-      try {
-        fs.mkdirSync('downloads');
-      } catch(e) {
-        if ( e.code != 'EEXIST' ){ 
-          callback(e);
-        }
-      }
-
-      zipfile.outputStream.pipe(fs.createWriteStream(path.join('downloads', 'mock_gtfs.zip'))).on("close", function() {
-        done();
-      });
-
-      zipfile.end();
-
+      util.zipMockAgency(done)
     })
 
     it('data should load from folder', function() {
