@@ -71,7 +71,7 @@
     "mocha": "^2.2.5",
     "mysql": "^2.9.0",
     "pg": "^4.4.0",
-    "pg-copy-streams": "^0.3.0",
+    "pg-copy-streams": "^1.0.0",
     "pg-hstore": "^2.3.2",
     "streamsql": "^0.8.5",
     "yazl": "^2.3.0"
