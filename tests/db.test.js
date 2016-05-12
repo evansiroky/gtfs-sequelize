@@ -79,7 +79,7 @@ describe(process.env.DIALECT, function() {
 
       gtfs = require('../index.js')(config);
       gtfs.loadGtfs(function(err) {
-        if(err) done(err);
+        if(err) return done(err);
         db = gtfs.connectToDatabase();
         done();
       });
