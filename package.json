@@ -1,6 +1,6 @@
 {
   "name": "gtfs-sequelize",
-  "version": "0.5.2",
+  "version": "0.0.0-semantically-release",
   "description": "A model for the static GTFS using sequelize.",
   "main": "index.js",
   "scripts": {
@@ -29,11 +29,12 @@
     "premerge-coverage": "node scripts/preMerge.js",
     "merge-coverage": "./node_modules/.bin/lcov-result-merger \"coverage-*/lcov.info\" \"coverage/lcov.info\"",
     "codeclimate-send": "cross-env CODECLIMATE_REPO_TOKEN=783da970f89b4c64bcd7a9ac3240c8671dc2838688ccaa90bd642cf27ec359dc ./node_modules/.bin/codeclimate-test-reporter < coverage/lcov.info",
-    "codeclimate": "npm run cover-all && npm run codeclimate-send"
+    "codeclimate": "npm run cover-all && npm run codeclimate-send",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/djstroky/gtfs-sequelize.git"
+    "url": "https://github.com/evansiroky/gtfs-sequelize.git"
   },
   "keywords": [
     "gtfs",
@@ -43,9 +44,9 @@
   "author": "Evan Siroky",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/djstroky/gtfs-sequelize/issues"
+    "url": "https://github.com/evansiroky/gtfs-sequelize/issues"
   },
-  "homepage": "https://github.com/djstroky/gtfs-sequelize#readme",
+  "homepage": "https://github.com/evansiroky/gtfs-sequelize#readme",
   "dependencies": {
     "async": "^1.4.2",
     "csv": "^0.4.6",
@@ -66,6 +67,7 @@
     "chai": "^3.5.0",
     "codeclimate-test-reporter": "^0.3.1",
     "cross-env": "^1.0.7",
+    "cz-conventional-changelog": "^1.1.6",
     "istanbul": "^0.4.2",
     "lcov-result-merger": "^1.0.2",
     "mocha": "^2.2.5",
@@ -73,7 +75,13 @@
     "pg": "^4.4.0",
     "pg-copy-streams": "^1.0.0",
     "pg-hstore": "^2.3.2",
+    "semantic-release": "^4.3.5",
     "streamsql": "^0.8.5",
     "yazl": "^2.3.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }

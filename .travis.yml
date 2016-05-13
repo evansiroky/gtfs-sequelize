@@ -1,4 +1,11 @@
+sudo: false
 language: node_js
+cache:
+  directories:
+    - node_modules
+
+notifications:
+  email: false
 
 node_js:
   - "5"
@@ -6,14 +13,8 @@ node_js:
   - "0.12"
   - "0.10"
 
-env:
-  - COVERAGE=false
-
-services:
-  - mysql
-  - postgresql
-
-before_script:
+before_install:
+  - npm i -g npm@^2.0.0
   - mysql -uroot -e 'CREATE DATABASE gtfs_sequelize_test;'
   - mysql -uroot -e "GRANT ALL PRIVILEGES ON gtfs_sequelize_test.* TO 'gtfs_sequelize'@'localhost' IDENTIFIED BY 'gtfs_sequelize';"
   - mysql -uroot -e "FLUSH PRIVILEGES;"
@@ -34,3 +35,13 @@ matrix:
     - node_js: "0.12"
       env: COVERAGE=true
       script: "npm run codeclimate"
+
+before_script:
+  - npm prune
+
+after_success:
+  - npm run semantic-release
+  
+branches:
+  except:
+    - /^v\d+\.\d+\.\d+$/
