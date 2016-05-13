@@ -13,6 +13,9 @@ node_js:
   - "0.12"
   - "0.10"
 
+env:
+  - COVERAGE=false
+
 before_install:
   - npm i -g npm@^2.0.0
   - mysql -uroot -e 'CREATE DATABASE gtfs_sequelize_test;'
@@ -41,7 +44,7 @@ before_script:
 
 after_success:
   - npm run semantic-release
-  
+
 branches:
   except:
     - /^v\d+\.\d+\.\d+$/
