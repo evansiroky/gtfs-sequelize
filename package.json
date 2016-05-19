@@ -49,7 +49,7 @@
   "homepage": "https://github.com/evansiroky/gtfs-sequelize#readme",
   "dependencies": {
     "async": "^1.4.2",
-    "csv": "^0.4.6",
+    "csv": "^1.1.0",
     "db-streamer": "^0.4.0",
     "download": "^4.2.0",
     "download-status": "^2.2.1",
