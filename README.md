@@ -58,6 +58,3 @@ Currently works only with PostgreSQL (including PostGIS) or MySQL.
     gtfs.loadGtfs(function() {
       //database loading has finished callback
     });
-
-  
-
