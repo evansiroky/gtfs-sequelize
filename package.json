@@ -48,11 +48,9 @@
   },
   "homepage": "https://github.com/evansiroky/gtfs-sequelize#readme",
   "dependencies": {
-    "async": "^1.4.2",
+    "async": "^2.0.0-rc.5",
     "csv": "^1.1.0",
     "db-streamer": "^0.4.0",
-    "download": "^4.2.0",
-    "download-status": "^2.2.1",
     "ftp": "^0.3.10",
     "moment": "^2.10.6",
     "nock": "^8.0.0",
