@@ -1,6 +1,5 @@
 var assert = require('chai').assert,
-  moment = require('moment'),
-  Promise = require('bluebird');
+  moment = require('moment');
 
 var util = require('./util.js')
 
@@ -12,7 +11,7 @@ var config = {
   }
 }
 
-var gtfs, promise;
+var gtfs;
 
 switch(process.env.DIALECT) {
   case 'mysql-spatial':
@@ -38,28 +37,24 @@ describe(process.env.DIALECT, function() {
       util.zipMockAgency(done)
     })
 
-    it('data should load from folder', function() {
+    it('data should load from folder', function(done) {
       this.timeout(60000);
 
       config.gtfsFileOrFolder = 'mock_agency';
       
       gtfs = require('../index.js')(config);
-      promise = Promise.promisify(gtfs.loadGtfs);
-
-      return promise();
+      gtfs.loadGtfs(done);
       
     });
 
-    it('data should load from zip folder', function() {
+    it('data should load from zip folder', function(done) {
       this.timeout(60000);
 
       config.downloadsDir = 'downloads';
       config.gtfsFileOrFolder = 'mock_gtfs.zip';
       
       gtfs = require('../index.js')(config);
-      promise = Promise.promisify(gtfs.loadGtfs);
-
-      return promise();
+      gtfs.loadGtfs(done);
       
     });
 
