@@ -1,6 +1,10 @@
 var assert = require('chai').assert,
   moment = require('moment');
 
+if (typeof Promise == 'undefined') {
+  global.Promise = require('promise-polyfill')
+}
+
 var util = require('./util.js')
 
 // prepare config for tests

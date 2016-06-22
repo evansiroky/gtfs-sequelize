@@ -69,9 +69,10 @@
     "lcov-result-merger": "^1.0.2",
     "mocha": "^2.5.1",
     "mysql": "^2.11.1",
-    "pg": "^5.0.0",
+    "pg": "^5.2.0",
     "pg-copy-streams": "^1.0.0",
     "pg-hstore": "^2.3.2",
+    "promise-polyfill": "^5.2.1",
     "semantic-release": "^4.3.5",
     "streamsql": "^0.8.5",
     "yazl": "^2.3.0"
