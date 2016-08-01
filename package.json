@@ -67,7 +67,7 @@
     "cz-conventional-changelog": "^1.1.6",
     "istanbul": "^0.4.2",
     "lcov-result-merger": "^1.0.2",
-    "mocha": "^2.5.1",
+    "mocha": "^3.0.0",
     "mysql": "^2.11.1",
     "pg": "^6.0.0",
     "pg-copy-streams": "^1.0.0",
