@@ -55,7 +55,7 @@
     "moment": "^2.10.6",
     "nock": "^9.0.0",
     "rimraf": "^2.4.3",
-    "sequelize": "3.24.5",
+    "sequelize": "3.24.6",
     "unzip2": "^0.2.5",
     "url-parse": "^1.0.2",
     "uuid": "^2.0.1"
