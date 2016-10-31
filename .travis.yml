@@ -8,11 +8,9 @@ notifications:
   email: false
 
 node_js:
-  - "6"
-  - "5"
-  - "4"
-  - "0.12"
-  - "0.10"
+  - '6'
+  - '5'
+  - '4'
 
 env:
   - COVERAGE=false
