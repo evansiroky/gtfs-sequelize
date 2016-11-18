@@ -70,7 +70,7 @@
     "mocha": "^3.0.0",
     "mysql": "^2.11.1",
     "pg": "^6.0.0",
-    "pg-copy-streams": "^1.0.0",
+    "pg-copy-streams": "^1.1.1",
     "pg-hstore": "^2.3.2",
     "promise-polyfill": "^6.0.0",
     "semantic-release": "^6.3.2",
