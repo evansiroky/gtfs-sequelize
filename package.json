@@ -58,7 +58,7 @@
     "sequelize": "3.27.0",
     "unzip2": "^0.2.5",
     "url-parse": "^1.0.2",
-    "uuid": "^2.0.1"
+    "uuid": "^3.0.0"
   },
   "devDependencies": {
     "chai": "^3.5.0",
