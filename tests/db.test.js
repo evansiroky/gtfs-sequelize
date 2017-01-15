@@ -1,5 +1,8 @@
+var path = require('path')
+
 var assert = require('chai').assert,
-  moment = require('moment');
+  moment = require('moment'),
+  rimraf = require('rimraf');
 
 if (typeof Promise == 'undefined') {
   global.Promise = require('promise-polyfill')
@@ -28,6 +31,11 @@ switch(process.env.DIALECT) {
   case 'postgres':
     config.database = 'postgres://gtfs_sequelize:gtfs_sequelize@localhost:5432/gtfs_sequelize_test'
     break;
+  case 'sqlite':
+    var sqliteStorage = path.resolve(__dirname) + '/temp.sqlite'
+    config.sequelizeOptions.dialect = 'sqlite'
+    config.sequelizeOptions.storage = sqliteStorage
+    break;
   default:
     throw new Error('Invalid DIALECT');
     break;
@@ -45,10 +53,10 @@ describe(process.env.DIALECT, function() {
       this.timeout(60000);
 
       config.gtfsFileOrFolder = 'mock_agency';
-      
+
       gtfs = require('../index.js')(config);
       gtfs.loadGtfs(done);
-      
+
     });
 
     it('data should load from zip folder', function(done) {
@@ -56,10 +64,10 @@ describe(process.env.DIALECT, function() {
 
       config.downloadsDir = 'downloads';
       config.gtfsFileOrFolder = 'mock_gtfs.zip';
-      
+
       gtfs = require('../index.js')(config);
       gtfs.loadGtfs(done);
-      
+
     });
 
   });
@@ -67,6 +75,15 @@ describe(process.env.DIALECT, function() {
   describe('querying', function() {
 
     var db;
+
+    after(function(done) {
+      var sqliteStorage = config.sequelizeOptions.storage
+      if (sqliteStorage) {
+        rimraf(sqliteStorage, done)
+      } else {
+        done()
+      }
+    })
 
     before(function(done) {
 
@@ -105,7 +122,7 @@ describe(process.env.DIALECT, function() {
 
     it('calendar query should work', function() {
       return db.calendar
-        .findAll({ 
+        .findAll({
           include: [db.calendar_date, db.trip],
           where: {
             service_id: 'weekend'
@@ -118,17 +135,17 @@ describe(process.env.DIALECT, function() {
           // correct data
           // convert to utc because mysql has tz conversion issues
           assert.strictEqual(moment.utc(data[0].end_date).date(), 31);
-          
+
           // associations
           // convert to utc because mysql has tz conversion issues
-          assert.strictEqual(moment.utc(data[0].calendar_dates[0].date).date(), 25);  
-          assert.strictEqual(data[0].trips[0].trip_headsign, 'Seattle Weekend Express'); 
+          assert.strictEqual(moment.utc(data[0].calendar_dates[0].date).date(), 25);
+          assert.strictEqual(data[0].trips[0].trip_headsign, 'Seattle Weekend Express');
         });
     });
 
     it('calendar_date query should work', function() {
       return db.calendar_date
-        .findAll({ 
+        .findAll({
           include: [db.calendar],
           service_id: 'weekend'
         })
@@ -148,7 +165,7 @@ describe(process.env.DIALECT, function() {
 
     it('fare_attribute query should work', function() {
       return db.fare_attribute
-        .findAll({ 
+        .findAll({
           include: [db.fare_rule],
           where: {
             fare_id: 'route_based_fare'
@@ -171,7 +188,7 @@ describe(process.env.DIALECT, function() {
       /* Don't fully understand how to get these working with sequelize yet
       it('route-based fare rule', function() {
         return db.fare_rule
-          .findAll({ 
+          .findAll({
             include: [db.fare_attribute, db.route],
             where: {
               fare_id: 'route_based_fare'
@@ -192,7 +209,7 @@ describe(process.env.DIALECT, function() {
 
       it('origin-destination-based fare rule', function() {
         return db.fare_rule
-          .findAll({ 
+          .findAll({
             include: [db.fare_attribute, {
                 model: db.stop,
                 as: 'origin_stop'
@@ -220,7 +237,7 @@ describe(process.env.DIALECT, function() {
 
       it('contains-based fare rule', function() {
         return db.fare_rule
-          .findAll({ 
+          .findAll({
             include: [db.fare_attribute, {
                 model: db.stop,
                 as: 'contains_stop'
@@ -273,8 +290,8 @@ describe(process.env.DIALECT, function() {
 
     it('route query should work', function() {
       return db.route
-        .findAll({ 
-          include: [db.trip, db.agency] 
+        .findAll({
+          include: [db.trip, db.agency]
         })
         .then(function(data) {
           // existence of record
@@ -292,7 +309,7 @@ describe(process.env.DIALECT, function() {
 
     it('shape query should work', function() {
       return db.shape
-        .findAll({ 
+        .findAll({
           where: {
             shape_pt_sequence: 1
           }
@@ -307,10 +324,10 @@ describe(process.env.DIALECT, function() {
     });
 
     describe('stop queries should work', function() {
-      
+
       it('stop served by stop_time', function() {
         return db.stop
-          .findAll({ 
+          .findAll({
             include: [{
               model: db.stop_time,
               where: {
@@ -339,7 +356,7 @@ describe(process.env.DIALECT, function() {
       /* Don't fully understand how to get these working with sequelize yet
       it('stop with origin fare rule', function() {
         return db.stop
-          .findAll({ 
+          .findAll({
             include: [{
               model: db.fare_rule,
               as: 'fare_rule_origins'
@@ -359,7 +376,7 @@ describe(process.env.DIALECT, function() {
 
       it('stop with destination fare rule', function() {
         return db.stop
-          .findAll({ 
+          .findAll({
             include: [{
               model: db.fare_rule,
               as: 'fare_rule_destinations'
@@ -379,7 +396,7 @@ describe(process.env.DIALECT, function() {
 
       it('stop with contains fare rule', function() {
         return db.stop
-          .findAll({ 
+          .findAll({
             include: [{
               model: db.fare_rule,
               as: 'fare_rule_contains'
@@ -399,7 +416,7 @@ describe(process.env.DIALECT, function() {
 
       it('stop with transfer from_stop', function() {
         return db.stop
-          .findAll({ 
+          .findAll({
             include: [{
               model: db.transfer,
               as: 'transfer_from_stops'
@@ -419,7 +436,7 @@ describe(process.env.DIALECT, function() {
 
       it('stop with transfer to_stop', function() {
         return db.stop
-          .findAll({ 
+          .findAll({
             include: [{
               model: db.transfer,
               as: 'transfer_to_stops'
@@ -441,7 +458,7 @@ describe(process.env.DIALECT, function() {
 
     it('stop_time query should work', function() {
       return db.stop_time
-        .findAll({ 
+        .findAll({
           include: [db.trip, db.stop],
           where: {
             trip_id: 'weekend_trip',
@@ -463,7 +480,7 @@ describe(process.env.DIALECT, function() {
 
     it('transfer query should work', function() {
       return db.transfer
-        .findAll({ 
+        .findAll({
           include: [{
             model: db.stop,
             as: 'from_stop'
@@ -491,7 +508,7 @@ describe(process.env.DIALECT, function() {
         includes.push(db.shape_gis);
       }
       return db.trip
-        .findAll({ 
+        .findAll({
           include: includes,
           where: {
             trip_id: 'weekday_trips'
@@ -519,7 +536,7 @@ describe(process.env.DIALECT, function() {
     if(config.spatial) {
       it('shape_gis query should work', function() {
         return db.shape_gis
-          .findAll({ 
+          .findAll({
             include: [db.trip]
           })
           .then(function(data) {
@@ -533,7 +550,7 @@ describe(process.env.DIALECT, function() {
             assert.isAbove(data[0].trips.length, 0);
           });
       });
-    } 
+    }
 
   });
 

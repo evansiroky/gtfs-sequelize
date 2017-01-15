@@ -4,9 +4,11 @@ var fs = require("fs"),
   Sequelize = require("sequelize");
 
 module.exports = function(config, options) {
-  console.log(config);
+  options = options || {}
   if(typeof config === 'string' || config instanceof String) {
     var sequelize = new Sequelize(config, options);
+  } else if(!config && options) {
+    var sequelize = new Sequelize(options);
   } else if(config.database) {
     var sequelize = new Sequelize(config.database, config.username, config.password, options);
   } else {

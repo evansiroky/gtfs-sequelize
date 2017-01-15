@@ -26,7 +26,7 @@ var makeFileIsDownloadedVerificationFn = function(callback) {
         assert.isAbove(stats.ctime.getTime(), aWhileAgo, 'file update time is before test!')
       } catch(e) {
         return callback(e)
-      } 
+      }
 
       callback()
 
@@ -72,7 +72,7 @@ describe('download', function() {
     })
 
     it('should fail with invalid protocol url being provided', function(done) {
-      gtfs = GTFS({  
+      gtfs = GTFS({
         gtfsUrl: 'xyz://example.com/gtfs.zip',
         downloadsDir: 'downloads'
       })
@@ -84,7 +84,7 @@ describe('download', function() {
       })
     })
   })
-  
+
   it('gtfs should download via http', function(done) {
 
     var scope = nock(NOCK_HOST)
