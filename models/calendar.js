@@ -11,8 +11,8 @@ module.exports = function(sequelize, DataTypes) {
     friday: DataTypes.INTEGER,
     saturday: DataTypes.INTEGER,
     sunday: DataTypes.INTEGER,
-    start_date: DataTypes.DATEONLY,
-    end_date: DataTypes.DATEONLY
+    start_date: DataTypes.STRING(8),
+    end_date: DataTypes.STRING(8)
   }, {
     freezeTableName: true,
     classMethods: {

@@ -9,7 +9,7 @@ module.exports = function(sequelize, DataTypes) {
       }
     },
     date: {
-      type: DataTypes.DATEONLY,
+      type: DataTypes.STRING(8),
       primaryKey: true
     },
     exception_type: DataTypes.INTEGER
@@ -18,8 +18,8 @@ module.exports = function(sequelize, DataTypes) {
     classMethods: {
       associate: function (models) {
         CalendarDate.belongsTo(models.calendar, {
-          foreignKeyContraint: true, 
-          foreignKey: "service_id" 
+          foreignKeyContraint: true,
+          foreignKey: "service_id"
         });
       }
     }
