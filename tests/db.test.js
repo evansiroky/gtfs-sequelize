@@ -70,6 +70,64 @@ describe(process.env.DIALECT, function() {
 
     });
 
+    it('should fail gracefully with an invalid feed folder', function(done) {
+      this.timeout(60000);
+
+      config.downloadsDir = 'tests';
+      config.gtfsFileOrFolder = 'invalid_feed_1';
+
+      gtfs = require('../index.js')(config);
+      gtfs.loadGtfs(function (err) {
+        assert.include(err.message, 'agency.txt <--- FILE NOT FOUND.  THIS FILE IS REQUIRED.  THIS FEED IS INVALID.')
+        done()
+      });
+    });
+
+    it('should fail gracefully when both calendar files are missing', function(done) {
+      this.timeout(60000);
+
+      config.downloadsDir = 'tests';
+      config.gtfsFileOrFolder = 'invalid_feed_2';
+
+      gtfs = require('../index.js')(config);
+      gtfs.loadGtfs(function (err) {
+        assert.include(err.message, 'Neither calendar.txt or calendar_dates.txt files found!  This feed is invalid!')
+        done()
+      });
+    });
+
+    it('data should load from feed with wide range in calendar dates', function(done) {
+      this.timeout(60000);
+
+      config.downloadsDir = 'tests';
+      config.gtfsFileOrFolder = 'feed_with_wide_range_in_calendar_dates';
+
+      gtfs = require('../index.js')(config);
+      gtfs.loadGtfs(function (err) {
+        assert.isNotOk(err)
+
+        // inspect the calendar table and expect to find christmas service
+        db = gtfs.connectToDatabase();
+        db.calendar
+          .findAll({
+            include: [db.calendar_date, db.trip],
+            where: {
+              service_id: 'christmas'
+            }
+          })
+          .then(function(data) {
+            // existence of record
+            assert.isAbove(data.length, 0);
+
+            assert.strictEqual(data[0].end_date, '20151225')
+
+            done()
+          })
+          .catch(done)
+      });
+
+    });
+
   });
 
   describe('querying', function() {
