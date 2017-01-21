@@ -133,7 +133,7 @@ describe(process.env.DIALECT, function() {
 
       config.downloadsDir = 'tests';
       config.gtfsFileOrFolder = 'mock_agency';
-      config.sequelizeOptions.logging = false
+      config.sequelizeOptions.logging = true
       config.sequelizeOptions.schema = 'test_schema'
 
       gtfs = require('../index.js')(config);
