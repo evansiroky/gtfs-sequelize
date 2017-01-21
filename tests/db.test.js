@@ -163,6 +163,7 @@ describe(process.env.DIALECT, function() {
       // load mock gtfs file before running querying tests
       config.downloadsDir = 'tests';
       config.gtfsFileOrFolder = 'mock_agency';
+      config.sequelizeOptions.logging = false
       config.sequelizeOptions.schema = undefined
 
       gtfs = require('../index.js')(config);
