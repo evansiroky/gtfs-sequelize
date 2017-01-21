@@ -26,6 +26,8 @@ before_install:
   - psql -U postgres -c 'CREATE ROLE gtfs_sequelize_role;'
   - psql -U postgres -c 'GRANT gtfs_sequelize_role TO gtfs_sequelize;'
   - psql -U postgres -c 'GRANT ALL ON DATABASE gtfs_sequelize_test TO gtfs_sequelize_role;'
+  - psql gtfs_sequelize_test -U postgres -c 'CREATE SCHEMA test_schema;'
+  - psql gtfs_sequelize_test -U postgres -c 'GRANT ALL ON SCHEMA test_schema TO PUBLIC;'
 
 matrix:
   fast_finish: true

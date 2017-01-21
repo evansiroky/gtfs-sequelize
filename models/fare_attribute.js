@@ -1,3 +1,5 @@
+var util = require('../lib/util')
+
 module.exports = function(sequelize, DataTypes) {
   var FareAttribute = sequelize.define("fare_attribute", {
     fare_id: {
@@ -9,17 +11,17 @@ module.exports = function(sequelize, DataTypes) {
     payment_method: DataTypes.INTEGER,
     transfers: DataTypes.INTEGER,
     transfer_duration: DataTypes.INTEGER
-  }, {
+  }, util.makeTableOptions(sequelize, {
     freezeTableName: true,
     classMethods: {
       associate: function (models) {
-        
+
         FareAttribute.hasMany(models.fare_rule, {
           foreignKey: 'fare_id'
         });
       }
     }
-  });
+  }));
 
   return FareAttribute;
 }

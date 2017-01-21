@@ -1,3 +1,5 @@
+var util = require('../lib/util')
+
 module.exports = function(sequelize, DataTypes) {
   var Calendar = sequelize.define("calendar", {
     service_id: {
@@ -13,7 +15,7 @@ module.exports = function(sequelize, DataTypes) {
     sunday: DataTypes.INTEGER,
     start_date: DataTypes.STRING(8),
     end_date: DataTypes.STRING(8)
-  }, {
+  }, util.makeTableOptions(sequelize, {
     freezeTableName: true,
     classMethods: {
       associate: function (models) {
@@ -28,7 +30,7 @@ module.exports = function(sequelize, DataTypes) {
 
       }
     }
-  });
+  }));
 
   return Calendar;
 }

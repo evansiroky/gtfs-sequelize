@@ -1,3 +1,5 @@
+var util = require('../../lib/util')
+
 module.exports = function(sequelize, DataTypes) {
   var ShapeGIS = sequelize.define("shape_gis", {
     shape_id: {
@@ -5,7 +7,7 @@ module.exports = function(sequelize, DataTypes) {
       primaryKey: true
     },
     geom: DataTypes.GEOMETRY('LINESTRING', 4326)
-  }, {
+  }, util.makeTableOptions(sequelize, {
     freezeTableName: true,
     classMethods: {
       associate: function (models) {
@@ -16,7 +18,7 @@ module.exports = function(sequelize, DataTypes) {
 
       }
     }
-  });
+  }));
 
   return ShapeGIS;
 }

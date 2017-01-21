@@ -41,51 +41,79 @@ Usage with SQLite requires that sqlite is installed and is available via a unix 
 
 ### Downloading the GTFS File:
 
-    var GTFS = require('gtfs-sequelize');
+```js
+  var GTFS = require('gtfs-sequelize');
 
-    var downloadConfig = {
-      gtfsUrl: 'http://feed.rvtd.org/googleFeeds/static/google_transit.zip',
-      downloadsDir: 'downloads'
-    };
+  var downloadConfig = {
+    gtfsUrl: 'http://feed.rvtd.org/googleFeeds/static/google_transit.zip',
+    downloadsDir: 'downloads'
+  };
 
-    var gtfs = GTFS(downloadConfig);
-    gtfs.downloadGtfs(function() {
-      //download has finished callback
-    });
+  var gtfs = GTFS(downloadConfig);
+  gtfs.downloadGtfs(function() {
+    //download has finished callback
+  });
+  ```
 
 ### Loading GTFS into Database:
 
-    var GTFS = require('gtfs-sequelize');
+```js
+  var GTFS = require('gtfs-sequelize');
 
-    var pgConfig = {
-      database: 'postgres://gtfs_sequelize:gtfs_sequelize@localhost:5432/gtfs-sequelize-test',
-      downloadsDir: 'downloads',
-      gtfsFilename: 'google_transit.zip',
-      sequelizeOptions: {
-        logging: false
-      }
+  var pgConfig = {
+    database: 'postgres://gtfs_sequelize:gtfs_sequelize@localhost:5432/gtfs-sequelize-test',
+    downloadsDir: 'downloads',
+    gtfsFilename: 'google_transit.zip',
+    sequelizeOptions: {
+      logging: false
     }
+  }
 
-    var gtfs = GTFS(pgConfig);
-    gtfs.loadGtfs(function() {
-      //database loading has finished callback
-    });
+  var gtfs = GTFS(pgConfig);
+  gtfs.loadGtfs(function() {
+    //database loading has finished callback
+  });
+  ```
 
 ### Loading into a DB with PostGIS installed:
 
-    var GTFS = require('gtfs-sequelize');
+```js
+  var GTFS = require('gtfs-sequelize');
 
-    var pgConfig = {
-      database: 'postgres://gtfs_sequelize:gtfs_sequelize@localhost:5432/gtfs-sequelize-test',
-      downloadsDir: 'downloads',
-      gtfsFilename: 'google_transit.zip',
-      spatial: true,
-      sequelizeOptions: {
-        logging: false
-      }
+  var pgConfig = {
+    database: 'postgres://gtfs_sequelize:gtfs_sequelize@localhost:5432/gtfs-sequelize-test',
+    downloadsDir: 'downloads',
+    gtfsFilename: 'google_transit.zip',
+    spatial: true,
+    sequelizeOptions: {
+      logging: false
     }
+  }
 
-    var gtfs = GTFS(pgConfig);
-    gtfs.loadGtfs(function() {
-      //database loading has finished callback
-    });
+  var gtfs = GTFS(pgConfig);
+  gtfs.loadGtfs(function() {
+    //database loading has finished callback
+  });
+  ```
+
+### Querying a specific schema within a DB:
+
+```js
+var GTFS = require('gtfs-sequelize');
+
+var pgConfig = {
+  database: 'postgres://gtfs_sequelize:gtfs_sequelize@localhost:5432/gtfs-sequelize-test',
+  downloadsDir: 'downloads',
+  gtfsFilename: 'google_transit.zip',
+  spatial: true,
+  sequelizeOptions: {
+    logging: false,
+    schema: 'test_schema'
+  }
+}
+
+var gtfs = GTFS(pgConfig);
+gtfs.loadGtfs(function() {
+  //database loading has finished callback
+});
+```

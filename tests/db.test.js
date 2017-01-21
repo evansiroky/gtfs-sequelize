@@ -128,6 +128,19 @@ describe(process.env.DIALECT, function() {
 
     });
 
+    it('should load into a specific schema', function(done) {
+      this.timeout(60000);
+
+      config.downloadsDir = 'tests';
+      config.gtfsFileOrFolder = 'mock_agency';
+      config.sequelizeOptions.logging = false
+      config.sequelizeOptions.schema = 'test_schema'
+
+      gtfs = require('../index.js')(config);
+
+      gtfs.loadGtfs(done);
+    })
+
   });
 
   describe('querying', function() {
@@ -150,6 +163,7 @@ describe(process.env.DIALECT, function() {
       // load mock gtfs file before running querying tests
       config.downloadsDir = 'tests';
       config.gtfsFileOrFolder = 'mock_agency';
+      config.sequelizeOptions.schema = undefined
 
       gtfs = require('../index.js')(config);
       gtfs.loadGtfs(function(err) {
