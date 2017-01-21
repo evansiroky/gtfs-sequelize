@@ -1,10 +1,12 @@
+var util = require('../lib/util')
+
 module.exports = function(sequelize, DataTypes) {
   var StopTime = sequelize.define("stop_time", {
     trip_id: {
       type: DataTypes.STRING(255),
       primaryKey: true,
       references: {
-        model: 'trip',
+        model: util.makeModelReference(sequelize, 'trip'),
         key: 'trip_id'
       }
     },
@@ -14,7 +16,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(255),
       primaryKey: true,
       references: {
-        model: 'stop',
+        model: util.makeModelReference(sequelize, 'stop'),
         key: 'stop_id'
       }
     },
@@ -26,22 +28,22 @@ module.exports = function(sequelize, DataTypes) {
     pickup_type: DataTypes.INTEGER,
     drop_off_type: DataTypes.INTEGER,
     shape_dist_traveled: DataTypes.FLOAT,
-    timepoint: DataTypes.INTEGER,
-  }, {
+    timepoint: DataTypes.INTEGER
+  }, util.makeTableOptions(sequelize, {
     freezeTableName: true,
     classMethods: {
       associate: function (models) {
         StopTime.belongsTo(models.trip, {
-          foreignKeyContraint: true, 
-          foreignKey: "trip_id" 
+          foreignKeyContraint: true,
+          foreignKey: "trip_id"
         });
         StopTime.belongsTo(models.stop, {
-          foreignKeyContraint: true, 
-          foreignKey: "stop_id" 
+          foreignKeyContraint: true,
+          foreignKey: "stop_id"
         });
       }
     }
-  });
+  }));
 
   return StopTime;
 }

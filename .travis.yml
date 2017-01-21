@@ -1,4 +1,4 @@
-sudo: false
+sudo: required
 language: node_js
 cache:
   directories:
@@ -16,7 +16,15 @@ env:
   - COVERAGE=false
 
 before_install:
-  - npm i -g npm@^2.0.0
+  - cd ~
+  - wget https://sqlite.org/2017/sqlite-autoconf-3160200.tar.gz
+  - tar xvfz sqlite-autoconf-3160200.tar.gz
+  - cd sqlite-autoconf-3160200
+  - ./configure
+  - sudo make
+  - sudo make install
+  - cd /home/travis/build/evansiroky/gtfs-sequelize
+  - sqlite3 -version
   - mysql -uroot -e 'CREATE DATABASE gtfs_sequelize_test;'
   - mysql -uroot -e "GRANT ALL PRIVILEGES ON gtfs_sequelize_test.* TO 'gtfs_sequelize'@'localhost' IDENTIFIED BY 'gtfs_sequelize';"
   - mysql -uroot -e "FLUSH PRIVILEGES;"
@@ -26,15 +34,17 @@ before_install:
   - psql -U postgres -c 'CREATE ROLE gtfs_sequelize_role;'
   - psql -U postgres -c 'GRANT gtfs_sequelize_role TO gtfs_sequelize;'
   - psql -U postgres -c 'GRANT ALL ON DATABASE gtfs_sequelize_test TO gtfs_sequelize_role;'
+  - psql gtfs_sequelize_test -U postgres -c 'CREATE SCHEMA test_schema;'
+  - psql gtfs_sequelize_test -U postgres -c 'GRANT ALL ON SCHEMA test_schema TO PUBLIC;'
 
 matrix:
   fast_finish: true
   include:
-    - node_js: "0.12"
+    - node_js: "6"
       env: COVERAGE=true
       script: "npm run codeclimate"
   allow_failures:
-    - node_js: "0.12"
+    - node_js: "6"
       env: COVERAGE=true
       script: "npm run codeclimate"
 

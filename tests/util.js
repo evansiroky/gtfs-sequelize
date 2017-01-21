@@ -19,7 +19,7 @@ var zipMockAgency = function(callback) {
   try {
     fs.mkdirSync('downloads');
   } catch(e) {
-    if ( e.code != 'EEXIST' ){ 
+    if ( e.code != 'EEXIST' ){
       callback(e);
     }
   }

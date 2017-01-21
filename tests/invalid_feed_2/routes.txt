@@ -1,0 +1,2 @@
+route_id,route_short_name,route_long_name,route_desc,route_type,route_url
+LA-Seattle,LA-SEA,Los Angeles - Seattle,,2,

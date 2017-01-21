@@ -1,3 +1,5 @@
+var util = require('../lib/util')
+
 module.exports = function(sequelize, DataTypes) {
   var Route = sequelize.define("route", {
     route_id: {
@@ -7,7 +9,7 @@ module.exports = function(sequelize, DataTypes) {
     agency_id: {
       type: DataTypes.STRING(255),
       references: {
-        model: "agency",
+        model: util.makeModelReference(sequelize, 'agency'),
         key: "agency_id"
       }
     },
@@ -18,14 +20,14 @@ module.exports = function(sequelize, DataTypes) {
     route_url: DataTypes.STRING(255),
     route_color: DataTypes.STRING(255),
     route_text_color: DataTypes.STRING(255)
-  }, {
+  }, util.makeTableOptions(sequelize, {
     freezeTableName: true,
     classMethods: {
       associate: function (models) {
-        
+
         Route.belongsTo(models.agency, {
-          foreignKeyContraint: true, 
-          foreignKey: "agency_id" 
+          foreignKeyContraint: true,
+          foreignKey: "agency_id"
         });
 
         Route.hasMany(models.trip, {
@@ -37,10 +39,10 @@ module.exports = function(sequelize, DataTypes) {
           foreignKey: 'route_id'
         });
         */
-        
+
       }
     }
-  });
+  }));
 
   return Route;
 }

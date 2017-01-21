@@ -24,8 +24,8 @@ module.exports = function(config) {
   }
 
   var loadGtfs = function(callback) {
-    loadgtfs(config.downloadsDir, 
-      config.gtfsFileOrFolder, 
+    loadgtfs(config.downloadsDir,
+      config.gtfsFileOrFolder,
       connectToDatabase(true),
       config.spatial,
       callback);

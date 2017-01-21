@@ -1,3 +1,5 @@
+var util = require('../lib/util')
+
 module.exports = function(sequelize, DataTypes) {
   var Agency = sequelize.define("agency", {
     agency_id: {
@@ -9,8 +11,8 @@ module.exports = function(sequelize, DataTypes) {
     agency_timezone: DataTypes.STRING(100),
     agency_lang: DataTypes.STRING(2),
     agency_phone: DataTypes.STRING(50),
-    agency_fare_url: DataTypes.STRING(255),
-  }, {
+    agency_fare_url: DataTypes.STRING(255)
+  }, util.makeTableOptions(sequelize, {
     freezeTableName: true,
     classMethods: {
       associate: function (models) {
@@ -19,7 +21,7 @@ module.exports = function(sequelize, DataTypes) {
         });
       }
     }
-  });
+  }));
 
   return Agency;
 }

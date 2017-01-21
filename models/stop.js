@@ -1,3 +1,5 @@
+var util = require('../lib/util')
+
 module.exports = function(sequelize, DataTypes) {
   var Stop = sequelize.define("stop", {
     stop_id: {
@@ -15,11 +17,11 @@ module.exports = function(sequelize, DataTypes) {
     parent_station: DataTypes.STRING(255),
     stop_timezone: DataTypes.STRING(100),
     wheelchair_boarding: DataTypes.INTEGER
-  }, {
+  }, util.makeTableOptions(sequelize, {
     freezeTableName: true,
     classMethods: {
       associate: function (models) {
-        
+
         Stop.hasMany(models.stop_time, {
           foreignKey: 'stop_id'
         });
@@ -41,7 +43,7 @@ module.exports = function(sequelize, DataTypes) {
           as: 'fare_rule_contains',
           foreignKey: 'zone_id',
           targetKey: 'contains_id'
-        });        
+        });
 
         Stop.hasMany(models.transfer, {
           as: 'transfer_from_stops',
@@ -54,10 +56,10 @@ module.exports = function(sequelize, DataTypes) {
           foreignKey: 'stop_id',
           targetKey: 'to_stop_id'
         });*/
-        
+
       }
     }
-  });
+  }));
 
   return Stop;
 }
