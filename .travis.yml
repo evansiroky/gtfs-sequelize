@@ -32,11 +32,11 @@ before_install:
 matrix:
   fast_finish: true
   include:
-    - node_js: "0.12"
+    - node_js: "6"
       env: COVERAGE=true
       script: "npm run codeclimate"
   allow_failures:
-    - node_js: "0.12"
+    - node_js: "6"
       env: COVERAGE=true
       script: "npm run codeclimate"
 
