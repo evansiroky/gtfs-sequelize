@@ -75,5 +75,7 @@ module.exports = function (db) {
     contains_id: DataTypes.STRING(255)
   })
 
+  FareRule.filename = 'fare_rules.txt'
+
   return FareRule
 }

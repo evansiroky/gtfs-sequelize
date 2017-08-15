@@ -1,6 +1,0 @@
-shape_id,shape_pt_lat,shape_pt_lon,shape_pt_sequence
-la-sea-shp,34.056313,-118.234014,1
-la-sea-shp,36.970318,-118.705662,2
-la-sea-shp,42.939383,-122.099206,3
-la-sea-shp,46.662348,-122.101693,4
-la-sea-shp,47.598398,-122.329480,5

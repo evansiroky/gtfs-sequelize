@@ -114,5 +114,7 @@ module.exports = function (db) {
     FUNICULAR: 7
   }
 
+  Route.filename = 'routes.txt'
+
   return Route
 }

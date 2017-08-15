@@ -56,5 +56,7 @@ module.exports = function (db) {
     min_transfer_time: DataTypes.INTEGER
   })
 
+  Transfer.filename = 'transfers.txt'
+
   return Transfer
 }

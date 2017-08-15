@@ -108,5 +108,7 @@ module.exports = function (db) {
     }
   })
 
+  Calendar.filename = 'calendar.txt'
+
   return Calendar
 }

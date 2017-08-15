@@ -58,5 +58,7 @@ module.exports = function (db) {
     transfer_duration: DataTypes.INTEGER
   })
 
+  FareAttribute.filename = 'fare_attributes.txt'
+
   return FareAttribute
 }

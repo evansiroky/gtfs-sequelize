@@ -79,5 +79,7 @@ module.exports = function (db) {
     shape_dist_traveled: DataTypes.FLOAT
   })
 
+  Shape.filename = 'shapes.txt'
+
   return Shape
 }

@@ -97,5 +97,7 @@ module.exports = function (db) {
     bikes_allowed: DataTypes.INTEGER
   })
 
+  Trip.filename = 'trips.txt'
+
   return Trip
 }

@@ -170,5 +170,7 @@ module.exports = function (db) {
     timepoint: DataTypes.INTEGER
   })
 
+  StopTime.filename = 'stop_times.txt'
+
   return StopTime
 }

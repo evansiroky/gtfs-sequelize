@@ -83,5 +83,7 @@ module.exports = function (db) {
     agency_email: DataTypes.STRING(255)
   })
 
+  Agency.filename = 'agency.txt'
+
   return Agency
 }

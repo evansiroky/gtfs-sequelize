@@ -1,5 +1,0 @@
-trip_id,arrival_time,departure_time,stop_id,stop_sequence,pickup_type,drop_off_type
-weekend_trip,12:00:00,12:00:00,LA,1,0,0
-weekend_trip,14:00:00,14:00:00,SEA,2,0,0
-weekday_trips,00:00:00,00:00:00,LA,1,0,0
-weekday_trips,02:05:00,02:05:00,SEA,2,0,0

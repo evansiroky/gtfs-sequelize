@@ -20,11 +20,16 @@
   },
   "homepage": "https://github.com/codeforatlanta/gtfs-sequelize#readme",
   "dependencies": {
+    "etl": "^0.5.7",
+    "mkdirp": "^0.5.1",
     "moment": "^2.18.1",
     "moment-timezone": "^0.5.13",
-    "sequelize": "^4.4.10"
+    "request": "^2.81.0",
+    "sequelize": "^4.4.10",
+    "unzipper": "^0.8.9"
   },
   "devDependencies": {
+    "sqlite3": "^3.1.9",
     "standard": "^10.0.3"
   }
 }

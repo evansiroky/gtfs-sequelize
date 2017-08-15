@@ -79,6 +79,7 @@ module.exports = function (db) {
 
   CalendarDate.EXCEPTION_OPEN = 1
   CalendarDate.EXCEPTION_CLOSED = 2
+  CalendarDate.filename = 'calendar_dates.txt'
 
   return CalendarDate
 }

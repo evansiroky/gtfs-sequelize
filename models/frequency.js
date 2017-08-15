@@ -84,5 +84,7 @@ module.exports = function (db) {
     exact_times: DataTypes.INTEGER
   })
 
+  Frequency.filename = 'frequencies.txt'
+
   return Frequency
 }

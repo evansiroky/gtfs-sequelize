@@ -14,7 +14,7 @@ module.exports = function (db) {
     and used according to terms described in the Creative Commons 3.0 Attribution License.
     https://developers.google.com/transit/gtfs/reference/stops-file
   */
-  const Stop = db.define('stop', Object.merge({
+  const Stop = db.define('stop', Object.assign({
     /*
       Contains an ID that uniquely identifies a stop or station. Multiple routes
       may use the same stop. The stop_id is dataset unique.
@@ -151,6 +151,8 @@ module.exports = function (db) {
     ACCESSABLE: 1,
     UNACCESSABLE: 2
   }
+
+  Stop.filename = 'stops.txt'
 
   return Stop
 }

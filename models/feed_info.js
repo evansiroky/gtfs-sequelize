@@ -76,5 +76,7 @@ module.exports = function (db) {
     feed_version: DataTypes.STRING(255)
   })
 
+  FeedInfo.filename = 'feed_info.txt'
+
   return FeedInfo
 }
