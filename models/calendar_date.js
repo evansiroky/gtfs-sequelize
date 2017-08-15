@@ -70,12 +70,13 @@ module.exports = function (db) {
       */
       dateMoment () {
         return moment.tz(this.start_date, 'YYYYMMDD', db.timezoneFor(this.service_id))
-      },
-      isOpen () {
-        return this.exception_type === CalendarDate.EXCEPTION_OPEN
       }
     }
   })
+
+  CalendarDate.prototype.isOpen = function () {
+    return this.exception_type === CalendarDate.EXCEPTION_OPEN
+  }
 
   CalendarDate.EXCEPTION_OPEN = 1
   CalendarDate.EXCEPTION_CLOSED = 2

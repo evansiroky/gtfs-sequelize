@@ -36,7 +36,7 @@ GTFS.prototype.init = function (opts, callback) {
   opts = opts || {}
   opts.path = opts.path || './google_transit.zip'
   opts.force = opts.force || false
-  opts.importLog = opts.importLog || false
+  opts.log = opts.log || false
   opts.minAge = opts.minAge || (60 * 24 * 60 * 60 * 1000) // 60 days in ms
 
   const promise = importData(this, opts)
@@ -50,9 +50,9 @@ module.exports = GTFS
 
 function importData (gtfs, opts) {
   function log (message) {
-    if (opts.importLog) {
-      if (typeof opts.importLog === 'function') {
-        opts.importLog(message)
+    if (opts.log) {
+      if (typeof opts.log === 'function') {
+        opts.log(message)
       } else {
         console.log(message)
       }
@@ -111,6 +111,15 @@ function zipFileLastModified (path) {
   })
 }
 
+// https://stackoverflow.com/a/33511005/1539043
+function trimObj (obj) {
+  if (!Array.isArray(obj) && typeof obj !== 'object') return obj
+  return Object.keys(obj).reduce((acc, key) => {
+    acc[key.trim()] = typeof obj[key] === 'string' ? obj[key].trim() : trimObj(obj[key])
+    return acc
+  }, Array.isArray(obj) ? [] : {})
+}
+
 function createTableStream (gtfs, log) {
   return new Transform({
     objectMode: true,
@@ -127,10 +136,11 @@ function createTableStream (gtfs, log) {
         // read the entry as a csv
         log('reading ' + filename)
         entry
-          // .pipe(csv({newline: '\r\n', objectMode: true, columns: true}))
-          .pipe(etl.csv({ newline: '\r\n', santitize: true }))
-          // .pipe(etl.map(item => trimObj(item)))
-          .pipe(etl.collect(1000)) // collect 1000 records at a time for bulk-insert
+          .pipe(etl.csv({ santitize: true }))
+          // clean up whitespace
+          .pipe(etl.map(item => trimObj(item)))
+          // collect 1000 records at a time for bulk-insert
+          .pipe(etl.collect(1000))
           // insert each row into the database
           .pipe(etl.map(data => model.bulkCreate(data, {ignoreDuplicates: true})))
           .on('finish', callback)

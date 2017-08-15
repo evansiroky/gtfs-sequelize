@@ -1,4 +1,5 @@
 const DataTypes = require('sequelize').DataTypes
+const moment = require('moment-timezone')
 
 module.exports = function (db) {
   /*
@@ -96,6 +97,34 @@ module.exports = function (db) {
     */
     bikes_allowed: DataTypes.INTEGER
   })
+
+  Trip.prototype.isRunningAt = function (datetime) {
+    // TODO convert timezone
+    // TODO cache value
+    // TODO this could be done faster (but less cleanly) in the database
+    const dateNumber = moment(datetime).format('YYYYMMDD')
+    const normalOperation = db.models.calendar.findOne({
+      where: {
+        service_id: this.service_id,
+        start_date: { $gte: dateNumber },
+        end_date: { $lte: dateNumber }
+      }
+    })
+    const exceptions = db.models.calendarDate.findAll({
+      where: {
+        service_id: this.service_id,
+        date: dateNumber
+      }
+    })
+    return Promise.all([normalOperation, exceptions]).then(res => {
+      const normal = res[0]
+      const dayOfWeek = moment(datetime).format('dddd').toLowerCase()
+      const normallyOpen = normal[dayOfWeek]
+      const openException = exceptions.filter(e => e.isOpen())[0]
+      const closedException = exceptions.filter(e => !e.isOpen())[0]
+      return (normallyOpen || openException) && !closedException
+    })
+  }
 
   Trip.filename = 'trips.txt'
 
