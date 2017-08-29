@@ -28,3 +28,6 @@ node_modules
 
 # Project level exclusions
 downloads
+
+*.zip
+*.db

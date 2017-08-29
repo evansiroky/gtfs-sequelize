@@ -1,4 +1,0 @@
-fare_id,route_id,origin_id,destination_id,contains_id
-route_based_fare,LA-Seattle,,,
-origin_destination_fare,,Z1,Z2,
-contains_fare,,,,Z3
