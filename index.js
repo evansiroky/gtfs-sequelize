@@ -39,7 +39,7 @@ GTFS.prototype.init = function (opts, callback) {
   opts.log = opts.log || false
   opts.minAge = opts.minAge || (60 * 24 * 60 * 60 * 1000) // 60 days in ms
 
-  const promise = importData(this, opts)
+  const promise = importData(this, opts).then(() => this)
   if (callback && typeof callback === 'function') {
     promise.then(callback)
   }
@@ -136,7 +136,7 @@ function createTableStream (gtfs, log) {
         // read the entry as a csv
         log('reading ' + filename)
         entry
-          .pipe(etl.csv({ santitize: true }))
+          .pipe(etl.csv({ newline: '\r\n', sanitize: true }))
           // clean up whitespace
           .pipe(etl.map(item => trimObj(item)))
           // collect 1000 records at a time for bulk-insert
