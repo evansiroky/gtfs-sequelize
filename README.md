@@ -63,7 +63,7 @@ Usage with SQLite requires that sqlite is installed and is available via a unix 
   var pgConfig = {
     database: 'postgres://gtfs_sequelize:gtfs_sequelize@localhost:5432/gtfs-sequelize-test',
     downloadsDir: 'downloads',
-    gtfsFilename: 'google_transit.zip',
+    gtfsFileOrFolder: 'google_transit.zip',
     sequelizeOptions: {
       logging: false
     }
@@ -83,7 +83,7 @@ Usage with SQLite requires that sqlite is installed and is available via a unix 
   var pgConfig = {
     database: 'postgres://gtfs_sequelize:gtfs_sequelize@localhost:5432/gtfs-sequelize-test',
     downloadsDir: 'downloads',
-    gtfsFilename: 'google_transit.zip',
+    gtfsFileOrFolder: 'google_transit.zip',
     spatial: true,
     sequelizeOptions: {
       logging: false
@@ -104,7 +104,7 @@ var GTFS = require('gtfs-sequelize');
 var pgConfig = {
   database: 'postgres://gtfs_sequelize:gtfs_sequelize@localhost:5432/gtfs-sequelize-test',
   downloadsDir: 'downloads',
-  gtfsFilename: 'google_transit.zip',
+  gtfsFileOrFolder: 'google_transit.zip',
   spatial: true,
   sequelizeOptions: {
     logging: false,

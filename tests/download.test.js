@@ -102,18 +102,5 @@ describe('download', function() {
     });
 
     gtfs.downloadGtfs(makeFileIsDownloadedVerificationFn(doneHelper))
-
-  });
-
-  it('gtfs should download via ftp', function(done) {
-    this.timeout(3000000);
-
-    gtfs = GTFS({
-      gtfsUrl: 'ftp://metrostlouis.org/Transit/google_transit.zip',
-      downloadsDir: 'downloads'
-    })
-
-    gtfs.downloadGtfs(makeFileIsDownloadedVerificationFn(done))
-
-  });
-});
+  })
+})
