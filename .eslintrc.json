@@ -1,4 +1,8 @@
 {
+  "env": {
+    "mocha": true,
+    "node": true
+  },
   "extends": "standard",
   "rules": {
     "complexity": ["warn", 10],
