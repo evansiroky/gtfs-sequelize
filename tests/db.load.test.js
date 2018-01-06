@@ -70,7 +70,7 @@ describe(process.env.DIALECT, function () {
 
       var gtfs = GTFS(config)
       gtfs.loadGtfs(function (err) {
-        assert.include(err.message, 'Neither calendar.txt or calendar_dates.txt files found!  This feed is invalid!')
+        assert.include(err.message, 'NEITHER calendar.txt OR calendar_dates.txt IS PRESENT IN THIS FEED.  THIS FEED IS INVALID.')
         done()
       })
     })
