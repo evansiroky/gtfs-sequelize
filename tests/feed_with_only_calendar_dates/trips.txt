@@ -1,0 +1,3 @@
+route_id,service_id,trip_id,trip_headsign,block_id,shape_id
+LA-Seattle,day1,trip1,Seattle Weekend Express,1,la-sea-shp
+LA-Seattle,day2,trip2,Seattle Weekday Express,1,la-sea-shp

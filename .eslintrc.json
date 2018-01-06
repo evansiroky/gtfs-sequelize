@@ -1,0 +1,29 @@
+{
+  "env": {
+    "mocha": true,
+    "node": true
+  },
+  "extends": "standard",
+  "rules": {
+    "complexity": ["warn", 10],
+    "import/order": ["warn", {
+      "newlines-between": "always"
+    }],
+    "no-magic-numbers": ["warn", {
+      "ignore": [-1, 0, 1, 2]
+    }],
+    "prefer-const": ["warn", {
+      "destructuring": "all",
+      "ignoreReadBeforeAssign": false
+    }],
+    "require-jsdoc": ["warn", {
+      "require": {
+        "FunctionDeclaration": true,
+        "MethodDefinition": true,
+        "ClassDeclaration": true
+      }
+    }],
+    "sort-keys": "warn",
+    "sort-vars": "warn"
+  }
+}
