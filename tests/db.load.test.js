@@ -130,5 +130,15 @@ describe(process.env.DIALECT, function () {
       var gtfs = GTFS(config)
       gtfs.loadGtfs(done)
     })
+
+    it('should load a gtfs without calendar_dates.txt', function (done) {
+      var config = util.getConfig()
+      this.timeout(config.maxLoadTimeout)
+
+      config.gtfsFileOrFolder = 'feed_with_only_calendar'
+
+      var gtfs = GTFS(config)
+      gtfs.loadGtfs(done)
+    })
   })
 })
