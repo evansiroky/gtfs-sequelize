@@ -22,7 +22,10 @@ module.exports = function(sequelize, DataTypes) {
     },
     trip_headsign: DataTypes.STRING(255),
     trip_short_name: DataTypes.STRING(100),
-    direction_id: DataTypes.INTEGER,
+    direction_id: {
+      defaultValue: 0,
+      type: DataTypes.INTEGER
+    },
     block_id: DataTypes.STRING(255),
     shape_id: DataTypes.STRING(255),  // association omitted.  See spatial trip model for relation.
     wheelchair_accessible: DataTypes.INTEGER,

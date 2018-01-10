@@ -1,0 +1,2 @@
+route_id,route_short_name,route_long_name,route_desc,route_type,route_url
+good-route,G,Route with 15 min frequency,,3,
