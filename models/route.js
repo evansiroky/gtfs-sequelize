@@ -15,7 +15,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     route_short_name: DataTypes.STRING(50),
     route_long_name: DataTypes.STRING(255),
-    route_desc: DataTypes.STRING(255),
+    route_desc: DataTypes.TEXT,
     route_type: DataTypes.INTEGER,
     route_url: DataTypes.STRING(255),
     route_color: DataTypes.STRING(255),
