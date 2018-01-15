@@ -131,6 +131,17 @@ describe(process.env.DIALECT, function () {
       gtfs.loadGtfs(done)
     })
 
+    it('should load a gtfs and try to interpolate stop times that do not need interpolation', function (done) {
+      var config = util.getConfig()
+      this.timeout(config.maxLoadTimeout)
+
+      config.gtfsFileOrFolder = 'only_calendar'
+      config.interpolateStopTimes = true
+
+      var gtfs = GTFS(config)
+      gtfs.loadGtfs(done)
+    })
+
     describe('with schema', () => {
       afterEach(function (done) {
         // drop and create the database before each test
