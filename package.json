@@ -3,6 +3,9 @@
   "version": "0.0.0-semantically-release",
   "description": "A model for the static GTFS using sequelize.",
   "main": "index.js",
+  "engines": {
+    "node": ">=6"
+  },
   "scripts": {
     "lint": "./node_modules/.bin/eslint lib",
     "test": "npm run test-download && npm run test-mysql && npm run test-mysql-spatial && npm run test-postgres && npm run test-postgis && npm run test-sqlite",
