@@ -3,12 +3,33 @@ var path = require('path')
 
 var yazl = require('yazl')
 
+if (typeof Promise === 'undefined') {
+  global.Promise = require('promise-polyfill')
+}
+
+/**
+ * Helper to drop the db before or after a test
+ */
+function dropDb (gtfs, done) {
+  var db = gtfs.connectToDatabase()
+  db.sequelize.drop()
+    .then(() => {
+      console.log('dropped')
+      return db.sequelize.close()
+    })
+    .then(() => {
+      console.log('closed')
+      done()
+    })
+    .catch(done)
+}
+
 /**
  * Get gtfs config for a test suite
  */
 function getConfig () {
   var config = {
-    downloadsDir: 'tests',
+    downloadsDir: 'tests/feeds',
     maxLoadTimeout: 60000,
     sequelizeOptions: {
       logging: false
@@ -47,7 +68,7 @@ var zipMockAgency = function (callback) {
   var zipfile = new yazl.ZipFile()
 
   // add all files in mock agency folder
-  var zipSourceDir = 'tests/mock_agency'
+  var zipSourceDir = 'tests/feeds/mock_agency'
   fs.readdirSync(zipSourceDir)
     .forEach(function (file) {
       zipfile.addFile(path.join(zipSourceDir, file), file)
@@ -69,6 +90,7 @@ var zipMockAgency = function (callback) {
 }
 
 module.exports = {
+  dropDb: dropDb,
   getConfig: getConfig,
   zipMockAgency: zipMockAgency
 }

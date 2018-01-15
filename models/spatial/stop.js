@@ -8,7 +8,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     stop_code: DataTypes.STRING(20),
     stop_name: DataTypes.STRING(255),
-    stop_desc: DataTypes.STRING(255),
+    stop_desc: DataTypes.TEXT,
     stop_lat: DataTypes.FLOAT(7),
     stop_lon: DataTypes.FLOAT(7),
     zone_id: DataTypes.STRING(255),

@@ -1,0 +1,7 @@
+stop_id,stop_code,stop_name,stop_desc,stop_lat,stop_lon,zone_id,stop_url,location_type,parent_station,stop_timezone,wheelchair_boarding
+1,,Bean Creek,,37.04469,-122.02294,,,0,,,
+2,,Erba,,37.04692,-122.01877,,,0,,,
+3,,Disc,,37.04825,-122.01693,,,0,,,
+4,,Carbonero,,37.05109,-122.0147,,,0,,,
+5,,El Pueblo,,37.05541,-122.01199,,,0,,,
+6,,Victor Sq,,37.05904,-122.01002,,,0,,,

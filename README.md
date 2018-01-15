@@ -9,7 +9,7 @@ Currently works only with PostgreSQL (including PostGIS), MySQL (with spatial ca
 ## Table of Contents
 
 * [Installation](#installation)
-* [Usage](#usage)
+* [API](#api)
 
 ## Installation
 
@@ -19,6 +19,7 @@ In order to use this library, you must also install the additional libraries in 
 
     npm install pg --save
     npm install pg-copy-streams --save
+    npm install pg-query-stream --save
     npm install pg-hstore --save
 
 #### With pg and node v0.10.x
@@ -37,66 +38,13 @@ You must also install the package `promise-polyfill` and write additional code. 
 
 Usage with SQLite requires that sqlite is installed and is available via a unix command line.
 
-## Usage:
+## API:
 
-### Downloading the GTFS File:
+### GTFS(options)
 
-```js
-  var GTFS = require('gtfs-sequelize');
+Create a new GTFS API.
 
-  var downloadConfig = {
-    gtfsUrl: 'http://feed.rvtd.org/googleFeeds/static/google_transit.zip',
-    downloadsDir: 'downloads'
-  };
-
-  var gtfs = GTFS(downloadConfig);
-  gtfs.downloadGtfs(function() {
-    //download has finished callback
-  });
-  ```
-
-### Loading GTFS into Database:
-
-```js
-  var GTFS = require('gtfs-sequelize');
-
-  var pgConfig = {
-    database: 'postgres://gtfs_sequelize:gtfs_sequelize@localhost:5432/gtfs-sequelize-test',
-    downloadsDir: 'downloads',
-    gtfsFileOrFolder: 'google_transit.zip',
-    sequelizeOptions: {
-      logging: false
-    }
-  }
-
-  var gtfs = GTFS(pgConfig);
-  gtfs.loadGtfs(function() {
-    //database loading has finished callback
-  });
-  ```
-
-### Loading into a DB with PostGIS installed:
-
-```js
-  var GTFS = require('gtfs-sequelize');
-
-  var pgConfig = {
-    database: 'postgres://gtfs_sequelize:gtfs_sequelize@localhost:5432/gtfs-sequelize-test',
-    downloadsDir: 'downloads',
-    gtfsFileOrFolder: 'google_transit.zip',
-    spatial: true,
-    sequelizeOptions: {
-      logging: false
-    }
-  }
-
-  var gtfs = GTFS(pgConfig);
-  gtfs.loadGtfs(function() {
-    //database loading has finished callback
-  });
-  ```
-
-### Querying a specific schema within a DB:
+Example:
 
 ```js
 var GTFS = require('gtfs-sequelize');
@@ -107,8 +55,7 @@ var pgConfig = {
   gtfsFileOrFolder: 'google_transit.zip',
   spatial: true,
   sequelizeOptions: {
-    logging: false,
-    schema: 'test_schema'
+    logging: false
   }
 }
 
@@ -117,3 +64,41 @@ gtfs.loadGtfs(function() {
   //database loading has finished callback
 });
 ```
+
+#### options
+
+| Key | Value |
+| -- | -- |
+| database | A database connection string.  You must specify a user and a database in your connection string.  The database must already exist, but the tables within the db do not need to exist. |
+| downloadsDir | The directory where you want the feed zip fils downloaded to or where you're going to read the feed read from. |
+| gtfsFileOrFolder | The (zip) file or folder to load the gtfs from |
+| interpolateStopTimes | Default is undefined.  If true, after loading the stop_times table, all stop_times with undefined arrival and departure times will be updated to include interpolated arrival and departure times. |
+| sequelizeOptions | Options to pass to sequelize.  Note: to use a specific schema you'll want to pass something like this: `{ schema: 'your_schema' }` |
+| spatial | Default is undefined.  If true, spatial tables for the shapes and stops will be created. |
+
+### gtfs.connectToDatabase()
+
+Return a sequelize api of the database.
+
+Example:
+
+```js
+var db = gtfs.connectToDatabase()
+
+db.stop.findAll()
+  .then(stops => {
+    console.log(stops)
+  })
+```
+
+### gtfs.downloadGtfs(callback)
+
+If a url is provided, the feed will be attempted to be downloaded.  Works with `http`, `https` and `ftp`.
+
+### gtfs.interpolateStopTimes(callback)
+
+Interpolate stop_times with undefined arrival and departure times.  If you load a gtfs with the `interpolateStopTimes` flag set to true, you don't need to call this.
+
+### gtfs.loadGtfs(callback)
+
+Load the gtfs into the database.
