@@ -2,10 +2,6 @@ var assert = require('chai').assert
 var moment = require('moment')
 var rimraf = require('rimraf')
 
-if (typeof Promise === 'undefined') {
-  global.Promise = require('promise-polyfill')
-}
-
 var util = require('./util.js')
 
 // prepare config for tests
@@ -22,7 +18,7 @@ describe(process.env.DIALECT, function () {
       if (sqliteStorage) {
         rimraf(sqliteStorage, done)
       } else {
-        done()
+        util.dropDb(gtfs, done)
       }
     })
 
@@ -30,7 +26,7 @@ describe(process.env.DIALECT, function () {
       this.timeout(maxLoadTimeout)
 
       // load mock gtfs file before running querying tests
-      config.downloadsDir = 'tests'
+      config.downloadsDir = 'tests/feeds'
       config.gtfsFileOrFolder = 'mock_agency'
       config.sequelizeOptions.logging = false
       config.sequelizeOptions.schema = undefined

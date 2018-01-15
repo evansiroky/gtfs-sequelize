@@ -2,10 +2,6 @@ var assert = require('chai').assert
 
 var GTFS = require('../index.js')
 
-if (typeof Promise === 'undefined') {
-  global.Promise = require('promise-polyfill')
-}
-
 var util = require('./util.js')
 
 // prepare config for tests
@@ -16,14 +12,11 @@ describe(process.env.DIALECT, function () {
       util.zipMockAgency(done)
     })
 
-    beforeEach(function (done) {
+    afterEach(function (done) {
       // drop and create the database before each test
       var config = util.getConfig()
       var gtfs = GTFS(config)
-      var db = gtfs.connectToDatabase()
-      db.sequelize.drop()
-        .then(() => done())
-        .catch(done)
+      util.dropDb(gtfs, done)
     })
 
     it('data should load from folder', function (done) {
@@ -51,7 +44,7 @@ describe(process.env.DIALECT, function () {
       var config = util.getConfig()
       this.timeout(config.maxLoadTimeout)
 
-      config.downloadsDir = 'tests'
+      config.downloadsDir = 'tests/feeds'
       config.gtfsFileOrFolder = 'invalid_feed_1'
 
       var gtfs = GTFS(config)
@@ -65,7 +58,7 @@ describe(process.env.DIALECT, function () {
       var config = util.getConfig()
       this.timeout(config.maxLoadTimeout)
 
-      config.downloadsDir = 'tests'
+      config.downloadsDir = 'tests/feeds'
       config.gtfsFileOrFolder = 'invalid_feed_2'
 
       var gtfs = GTFS(config)
@@ -79,8 +72,8 @@ describe(process.env.DIALECT, function () {
       var config = util.getConfig()
       this.timeout(config.maxLoadTimeout)
 
-      config.downloadsDir = 'tests'
-      config.gtfsFileOrFolder = 'feed_with_wide_range_in_calendar_dates'
+      config.downloadsDir = 'tests/feeds'
+      config.gtfsFileOrFolder = 'wide_range_in_calendar_dates'
 
       var gtfs = GTFS(config)
       gtfs.loadGtfs(function (err) {
@@ -107,25 +100,11 @@ describe(process.env.DIALECT, function () {
       })
     })
 
-    it('should load into a specific schema', function (done) {
-      var config = util.getConfig()
-      this.timeout(config.maxLoadTimeout)
-
-      config.downloadsDir = 'tests'
-      config.gtfsFileOrFolder = 'mock_agency'
-      config.sequelizeOptions.logging = false
-      config.sequelizeOptions.schema = 'test_schema'
-
-      var gtfs = GTFS(config)
-
-      gtfs.loadGtfs(done)
-    })
-
     it('should load a gtfs with only calendar_dates.txt', function (done) {
       var config = util.getConfig()
       this.timeout(config.maxLoadTimeout)
 
-      config.gtfsFileOrFolder = 'feed_with_only_calendar_dates'
+      config.gtfsFileOrFolder = 'only_calendar_dates'
 
       var gtfs = GTFS(config)
       gtfs.loadGtfs(done)
@@ -135,10 +114,43 @@ describe(process.env.DIALECT, function () {
       var config = util.getConfig()
       this.timeout(config.maxLoadTimeout)
 
-      config.gtfsFileOrFolder = 'feed_with_only_calendar'
+      config.gtfsFileOrFolder = 'only_calendar'
 
       var gtfs = GTFS(config)
       gtfs.loadGtfs(done)
+    })
+
+    it('should load a gtfs and interpolate stop times', function (done) {
+      var config = util.getConfig()
+      this.timeout(config.maxLoadTimeout)
+
+      config.gtfsFileOrFolder = 'interpolated_no_shapes'
+      config.interpolateStopTimes = true
+
+      var gtfs = GTFS(config)
+      gtfs.loadGtfs(done)
+    })
+
+    describe('with schema', () => {
+      afterEach(function (done) {
+        // drop and create the database before each test
+        var config = util.getConfig()
+        config.sequelizeOptions.schema = 'test_schema'
+        var gtfs = GTFS(config)
+        util.dropDb(gtfs, done)
+      })
+
+      it('should load into a specific schema', function (done) {
+        var config = util.getConfig()
+        this.timeout(config.maxLoadTimeout)
+
+        config.gtfsFileOrFolder = 'mock_agency'
+        config.sequelizeOptions.schema = 'test_schema'
+
+        var gtfs = GTFS(config)
+
+        gtfs.loadGtfs(done)
+      })
     })
   })
 })
